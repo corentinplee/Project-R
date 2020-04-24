@@ -12,6 +12,13 @@ mobileDetect <- function(inputId, value = 0) {
   )
 }
 
+#getTrialData <- function(input) {
+#  trialData <- data.frame(
+#   question = input$gender
+#  )
+#  return(trialData)
+#}
+
 ui <- fluidPage(#theme=shinytheme("slate"),
   
   sidebarLayout(
@@ -43,10 +50,14 @@ server <- function(input, output, session) {
   output$MainAction <- renderUI({
     PageLayouts()
   })
-  
   # Wraps a normal expression to create a reactive expression.
   # A reactive expression is an expression whose result will change over time.
-  
+server <- function(input,output){
+  output$value <- renderPrint({
+    input$gt_mobile_detection
+    isolate(input$gender)
+  })
+}
   PageLayouts <- reactive(
     {
     
@@ -56,14 +67,20 @@ server <- function(input, output, session) {
         list(
           HTML("<h1>Page d'identification</h1>"),
           numericInput('age','Entrez votre âge','',min= 1, max= 120),
-          radioButtons("gender","Quel est votre sexe? ",choices=c("Homme","Femme"),selected=character(0),inline=FALSE),
+          radioButtons("gender","Quel est votre sexe? ",choices=c("Homme","Femme"),selected=character(0),inline=TRUE),
           radioButtons("language","La langue française est-elle votre langue maternelle?",choices=c("oui","non"),selected=character(0),inline=FALSE),
           radioButtons("earphones","Êtes-vous bien sur ordinateur avec des écouteurs?",choices=c("oui","non"),selected=character(0),inline=FALSE),
           radioButtons("impairment","Avez-vous des troubles auditifs ou visuels connus?",choices=c("oui","non"),selected=character(0),inline=FALSE),
           HTML("<br>"),
-          h4(textOutput("conditions_Next")),
-          HTML("<br><br>"),
+          conditionalPanel(
+          condition =c("input.language == 'oui' && input.earphones =='oui' && input.impairment =='non'"),
             actionButton(inputId = "gt_mobile_detection",label = "Étape suivante")
+          ),
+          conditionalPanel(
+          condition =c("input.language == 'non' || input.earphones =='non' || input.impairment =='oui'"),
+          h3("Mauvaise réponse.Vous ne pouvez pas continuer.")
+          )
+          
         )
       )
     }
@@ -74,6 +91,7 @@ server <- function(input, output, session) {
         list(
           HTML("<h3>Identification du type de votre appareil<br>(mobile / non-mobile)</h3><hr><br>"),
           mobileDetect('isMobile'),
+          verbatimTextOutput("value"),
           h4(textOutput('isItMobile')),
           HTML("<br><br>"),
           if (length(input$isMobile) > 0) {
@@ -222,21 +240,20 @@ server <- function(input, output, session) {
     ifelse(input$isMobile, "Votre appareil est un mobile.", "Votre appareil n'est pas un mobile. Vous pouvez passer à l'étape suivante !")
   })
   
-  observeEvent(input$impairment, {  #Check whether an input has been made:
-    score <- 0
-    if (input$language == "oui") {
-      score <- 1
-    }
-    if (input$earphones == "oui") {
-      score <- score + 1
-    }
-    if (input$impairment == "non") {
-      score <- score + 1
-    }
-    output$conditions_Next <- renderText(paste("Votre score :",score,"/ 3"))
-  }
-  )
-
+  observeEvent(input$impairment,{
+    (
+      withProgress(message="Saving data...",value = 0,{
+        
+        incProgress(.25)
+        
+        data.list <- list( "sexe"= input$gender,
+                           "ecouteurs"= input$earphones,
+                           "langue"= input$language)
+        save(data.list,file = "bdd.Rmd")
+       # saveData(data.list,location ="dropbox",outputDir = outputDir,
+        #         partId = data.list$gender, suffix = "_g")
+      })
+    )})
   observeEvent(input$q4, {  #Check whether an input has been made:
     score <- 0
     if (input$q1 == "français.") {
