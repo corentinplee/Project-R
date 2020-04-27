@@ -1,5 +1,6 @@
 library(shiny)
 library(shinythemes)
+library(RMySQL)
 
 # (c) Gervasio Marchand, https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
 
@@ -11,13 +12,17 @@ mobileDetect <- function(inputId, value = 0) {
                type = "hidden")
   )
 }
+#informations on database
+options(mysql = list(
+  "host" = "mysql-corentin-plee.alwaysdata.net",
+  "user" = "202831",
+  "password" = "mabd2020"
+))
 
-#getTrialData <- function(input) {
-#  trialData <- data.frame(
-#   question = input$gender
-#  )
-#  return(trialData)
-#}
+databaseName <- "corentin-plee_project_r"
+
+# informations upload to database
+fieldsAll <- c("age","gender","language","earphones","impairment")
 
 ui <- fluidPage(#theme=shinytheme("slate"),
   
@@ -52,12 +57,34 @@ server <- function(input, output, session) {
   })
   # Wraps a normal expression to create a reactive expression.
   # A reactive expression is an expression whose result will change over time.
-server <- function(input,output){
-  output$value <- renderPrint({
-    input$gt_mobile_detection
-    isolate(input$gender)
+#server <- function(input,output){
+#  output$value <- renderPrint({
+#    input$gt_mobile_detection
+#    isolate(input$gender)
+ # })
+#}
+  #send data when a field is filled 
+  formData <- reactive({
+    data <- sapply(fieldsAll,function(x) input[[x]])
+    data
   })
-}
+  #connection to database, construct a query of the data, submit it and disconnect
+  saveData <- function(data) {
+    db <- dbConnect(MySQL(), dbname = databaseName, host =options()$mysql$host,
+                    user = options()$mysql$user,
+                    password = options()$mysql$password)
+    query <- sprintf(
+      "INSERT INTO Users (%s) VALUES ('%s')",
+      #table,
+      paste(names(data), collapse =", "),
+      paste(data,collapse = "', '")
+    )
+    
+    dbGetQuery(db,query)
+    dbDisconnect(db)
+
+  }
+ 
   PageLayouts <- reactive(
     {
     
@@ -240,20 +267,11 @@ server <- function(input,output){
     ifelse(input$isMobile, "Votre appareil est un mobile.", "Votre appareil n'est pas un mobile. Vous pouvez passer à l'étape suivante !")
   })
   
-  observeEvent(input$impairment,{
-    (
-      withProgress(message="Saving data...",value = 0,{
-        
-        incProgress(.25)
-        
-        data.list <- list( "sexe"= input$gender,
-                           "ecouteurs"= input$earphones,
-                           "langue"= input$language)
-        save(data.list,file = "bdd.Rmd")
-       # saveData(data.list,location ="dropbox",outputDir = outputDir,
-        #         partId = data.list$gender, suffix = "_g")
-      })
-    )})
+  #save datas when clicked on the button next
+  observeEvent(input$gt_mobile_detection,{
+    saveData(formData())
+  })
+  
   observeEvent(input$q4, {  #Check whether an input has been made:
     score <- 0
     if (input$q1 == "français.") {
