@@ -1,6 +1,7 @@
 library(shiny)
 library(shinythemes)
 library(RMySQL)
+library(pingr)
 
 # (c) Gervasio Marchand, https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
 
@@ -12,6 +13,30 @@ mobileDetect <- function(inputId, value = 0) {
                type = "hidden")
   )
 }
+# Détection du navigateur + version de l'utilisateur à modifier en fichier js
+js <- "
+// execute the code after the shiny session has started
+$(document).on('shiny:sessioninitialized', function(event) {
+  // browser detection from https://stackoverflow.com/a/5918791/8099834
+  navigator.sayswho= (function(){
+    var ua= navigator.userAgent, tem, 
+    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\\/))\\/?\\s*(\\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\\brv[ :]+(\\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1]=== 'Chrome'){
+        tem= ua.match(/\\b(OPR|Edge)\\/(\\d+)/);
+        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem= ua.match(/version\\/(\\d+)/i))!= null) M.splice(1, 1, tem[1]);
+    return M.join(' ');
+  })(); 
+  // pass browser info from JS to R
+  Shiny.onInputChange('myBrowser', navigator.sayswho); 
+});
+"
 #informations on database
 options(mysql = list(
   "host" = "mysql-corentin-plee.alwaysdata.net",
@@ -20,6 +45,12 @@ options(mysql = list(
 ))
 
 databaseName <- "corentin-plee_project_r"
+epochTime <- function(){
+  as.integer(Sys.time())
+}
+
+countries.list <- read.table("country.txt", header =FALSE,stringsAsFactors = FALSE,quote = "", col.names = "countryname")
+choice.country <- as.list(countries.list$countryname)
 
 # informations upload to database
 fieldsAll <- c("age","gender","language","earphones","impairment")
@@ -40,6 +71,28 @@ ui <- fluidPage(#theme=shinytheme("slate"),
   
     uiOutput("MainAction"),
     tags$style(type = "text/css", ".recalculating {opacity: 1.0;}"),   # Prevents gray screen during Sys.sleep()
+    tags$head(
+      tags$script(HTML(js)),
+      tags$script('
+  $(document).ready(function () {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+    function onError (err) {
+    Shiny.onInputChange("geolocation", false);
+    }
+    
+   function onSuccess (position) {
+      setTimeout(function () {
+          var coords = position.coords;
+          console.log(coords.latitude + ", " + coords.longitude);
+          Shiny.onInputChange("geolocation", true);
+          Shiny.onInputChange("lat", coords.latitude);
+          Shiny.onInputChange("long", coords.longitude);
+      }, 1100)
+  }
+  });
+')
+    ),
     )
   ) # end of sidebarLayout
   
@@ -49,7 +102,7 @@ server <- function(input, output, session) {
   
   #create an object for storing reactive values
   
-  CurrentValues <- reactiveValues(page = "index")
+  CurrentValues <- reactiveValues(page = "testGeo")
                                   
   # Send dynamic UI to ui - DON'T CHANGE!
   output$MainAction <- renderUI({
@@ -66,6 +119,7 @@ server <- function(input, output, session) {
   #send data when a field is filled 
   formData <- reactive({
     data <- sapply(fieldsAll,function(x) input[[x]])
+    data <- c(data, timestamp = epochTime())
     data
   })
   #connection to database, construct a query of the data, submit it and disconnect
@@ -87,18 +141,63 @@ server <- function(input, output, session) {
  
   PageLayouts <- reactive(
     {
-    
+    if (CurrentValues$page == "testGeo")
+  {
+    return(
+      list(titlePanel("Using Geolocation"),
+           
+           tags$script('
+      $(document).ready(function () {
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+              
+        function onError (err) {
+          Shiny.onInputChange("geolocation", false);
+        }
+              
+        function onSuccess (position) {
+          setTimeout(function () {
+            var coords = position.coords;
+            console.log(coords.latitude + ", " + coords.longitude);
+            Shiny.onInputChange("geolocation", true);
+            Shiny.onInputChange("lat", coords.latitude);
+            Shiny.onInputChange("long", coords.longitude);
+          }, 1100)
+        }
+      });
+              '),
+           
+           # Show a plot of the generated distribution
+           fluidRow(column(width = 2,
+                           verbatimTextOutput("lat"),
+                           verbatimTextOutput("long"),
+                           verbatimTextOutput("geolocation"))
+           ),
+           
+      actionButton(inputId = "index",label = "Étape suivante")
+    )
+    )
+  }
     if (CurrentValues$page == "index")
     {
       return(
         list(
           HTML("<h1>Page d'identification</h1>"),
           numericInput('age','Entrez votre âge','',min= 1, max= 120),
+          textInput('Browser','Quel est votre navigateur et sa version?'),
+          HTML("<p>Si vous ne savez pas la version ou le navigateur que vous utilisez <br> veuillez trouver la réponse vous concernant ici :</p>"),
+          textOutput("myBrowserOutput"),
+          HTML("<br>"),
+          #my_ip(), A voir car affiche une Ip mais il semblerait que ce ne soit pas la bonne IP...
+          is_online(),
+          ping_port("www.google.com", port = 80, count = 1), #fait vraisemblablement apparaitre le ping de l'utilisateur, à tester.
+          selectizeInput("country","Dans quel pays réalisez-vous ce test?",choices= choice.country),
           radioButtons("gender","Quel est votre sexe? ",choices=c("Homme","Femme"),selected=character(0),inline=TRUE),
           radioButtons("language","La langue française est-elle votre langue maternelle?",choices=c("oui","non"),selected=character(0),inline=FALSE),
           radioButtons("earphones","Êtes-vous bien sur ordinateur avec des écouteurs?",choices=c("oui","non"),selected=character(0),inline=FALSE),
           radioButtons("impairment","Avez-vous des troubles auditifs ou visuels connus?",choices=c("oui","non"),selected=character(0),inline=FALSE),
+          radioButtons("connection","Vous êtes connecté à Internet en",choices=c("filaire","wi-fi"),selected=character(0),inline=TRUE),
           HTML("<br>"),
+          
           conditionalPanel(
           condition =c("input.language == 'oui' && input.earphones =='oui' && input.impairment =='non'"),
             actionButton(inputId = "gt_mobile_detection",label = "Étape suivante")
@@ -263,8 +362,24 @@ server <- function(input, output, session) {
   
   # (c) Gervasio Marchand, https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
   
+  output$myBrowserOutput <- renderText({
+    input$myBrowser # contains the value returned by the JS function
+  })
+  
   output$isItMobile <- renderText({
     ifelse(input$isMobile, "Votre appareil est un mobile.", "Votre appareil n'est pas un mobile. Vous pouvez passer à l'étape suivante !")
+  })
+  
+  output$lat <- renderPrint({
+    input$lat
+  })
+  
+  output$long <- renderPrint({
+    input$long
+  })
+  
+  output$geolocation <- renderPrint({
+    input$geolocation
   })
   
   #save datas when clicked on the button next
@@ -289,7 +404,6 @@ server <- function(input, output, session) {
     output$French_level <- renderText(paste("Votre score :",score,"/ 4"))
     }
   )
-  
   observeEvent(input$stim_6, {  #Check whether an input has been made:
     score <- 0
     if (input$stim_1 == 3) {
@@ -313,6 +427,10 @@ server <- function(input, output, session) {
     output$headphone_check <- renderText(paste("Votre score :",score,"/ 6"))
     }
   )
+  
+  observeEvent(input$index,{
+    CurrentValues$page <- "index"
+  })
   
   observeEvent(input$gt_mobile_detection, {
     CurrentValues$page <- "mobile_detection"
