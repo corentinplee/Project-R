@@ -37,6 +37,7 @@ $(document).on('shiny:sessioninitialized', function(event) {
   Shiny.onInputChange('myBrowser', navigator.sayswho); 
 });
 "
+
 #informations on database
 options(mysql = list(
   "host" = "mysql-corentin-plee.alwaysdata.net",
@@ -53,10 +54,13 @@ countries.list <- read.table("country.txt", header =FALSE,stringsAsFactors = FAL
 choice.country <- as.list(countries.list$countryname)
 
 # informations upload to database
-fieldsAll <- c("age","gender","language","earphones","impairment")
+fieldsAll <- c("age","country","gender","language","earphones","impairment","browser","connection")
+ipadress <- my_ip()
 
 ui <- fluidPage(#theme=shinytheme("slate"),
-  
+  headerPanel(
+    #h2(textOutput("currentPing"))),
+   h6(textOutput("currentPing"),align ="right", display = "inline"),"app"),
   sidebarLayout(
     sidebarPanel(
       div(img(src="amu.jpg",width=230), style="text-align: center;"),
@@ -144,7 +148,7 @@ server <- function(input, output, session) {
     if (CurrentValues$page == "testGeo")
   {
     return(
-      list(titlePanel("Using Geolocation"),
+      list(titlePanel("Localisation"),
            
            tags$script('
       $(document).ready(function () {
@@ -172,6 +176,11 @@ server <- function(input, output, session) {
                            verbatimTextOutput("long"),
                            verbatimTextOutput("geolocation"))
            ),
+           conditionalPanel(
+             condition =c("input.geolocation == true"),
+             HTML("<p1> Veuillez continuer si la valeur du dessus est TRUE.</p1>")
+           ),    
+      
            
       actionButton(inputId = "index",label = "Étape suivante")
     )
@@ -183,21 +192,22 @@ server <- function(input, output, session) {
         list(
           HTML("<h1>Page d'identification</h1>"),
           numericInput('age','Entrez votre âge','',min= 1, max= 120),
-          textInput('Browser','Quel est votre navigateur et sa version?'),
-          HTML("<p>Si vous ne savez pas la version ou le navigateur que vous utilisez <br> veuillez trouver la réponse vous concernant ici :</p>"),
-          textOutput("myBrowserOutput"),
-          HTML("<br>"),
-          #my_ip(), A voir car affiche une Ip mais il semblerait que ce ne soit pas la bonne IP...
-          is_online(),
-          ping_port("www.google.com", port = 80, count = 1), #fait vraisemblablement apparaitre le ping de l'utilisateur, à tester.
           selectizeInput("country","Dans quel pays réalisez-vous ce test?",choices= choice.country),
           radioButtons("gender","Quel est votre sexe? ",choices=c("Homme","Femme"),selected=character(0),inline=TRUE),
           radioButtons("language","La langue française est-elle votre langue maternelle?",choices=c("oui","non"),selected=character(0),inline=FALSE),
           radioButtons("earphones","Êtes-vous bien sur ordinateur avec des écouteurs?",choices=c("oui","non"),selected=character(0),inline=FALSE),
           radioButtons("impairment","Avez-vous des troubles auditifs ou visuels connus?",choices=c("oui","non"),selected=character(0),inline=FALSE),
+          textInput('browser','Quel est votre navigateur et sa version?'),
+          HTML("<p>Si vous ne savez pas la version ou le navigateur que vous utilisez <br> veuillez trouver la réponse vous concernant ici :</p>"),
+          textOutput("myBrowserOutput"),
+          #my_ip(),# A voir car affiche une Ip mais il semblerait que ce ne soit pas la bonne IP...
+          #ping(ipadress,count = 1),
+          #ping(ipadress,count = 1),
+          #print(ipadress),
+          #is_online(),
+          #ping_port("www.google.com", port = 80, count = 1), #fait vraisemblablement apparaitre le ping de l'utilisateur, à tester.
           radioButtons("connection","Vous êtes connecté à Internet en",choices=c("filaire","wi-fi"),selected=character(0),inline=TRUE),
           HTML("<br>"),
-          
           conditionalPanel(
           condition =c("input.language == 'oui' && input.earphones =='oui' && input.impairment =='non'"),
             actionButton(inputId = "gt_mobile_detection",label = "Étape suivante")
@@ -338,11 +348,34 @@ server <- function(input, output, session) {
           HTML("<br>"),
           p("Cliquer sur Continuer."),
           HTML("<br>"),
-          actionButton(inputId = "gt_inst4", label = "Continuer")
+          actionButton(inputId = "prepa_questionnaire", label = "Continuer")
           )
           
         )
       } # end of second part
+      
+    if (CurrentValues$page == "pquestionnaire")
+    {
+      return(
+        list(
+          h3("Apprentissage"),
+          HTML("<hr>"),
+          tags$audio(src = "1.wav", type = "audio/wav", controls = NA),
+          HTML("<hr>"),
+          tags$img(src="test1.png", type="img/png",controls = NA),
+          tags$img(src="test2bis.png", type="img/png",controls = NA),
+          tags$img(src="test3.png", type="img/png",controls = NA),
+          tags$img(src="test4.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          radioButtons("iconschoices","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+          HTML("<br>"),
+          conditionalPanel(
+            condition =c("input.iconschoices == '1' || input.iconschoices =='2' || input.iconschoices =='3' || input.iconschoices == '4'"),
+            actionButton(inputId = "gt_inst4",label = "Étape suivante")
+          )
+        )
+      )
+    }
       
     if (CurrentValues$page == "inst4")
       {
@@ -361,6 +394,11 @@ server <- function(input, output, session) {
   ) # end of PageLayouts
   
   # (c) Gervasio Marchand, https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
+  
+  output$currentPing <- renderText({
+    invalidateLater(5000,session)
+    paste ("ping :",ping(ipadress,count = 1))
+  })
   
   output$myBrowserOutput <- renderText({
     input$myBrowser # contains the value returned by the JS function
@@ -462,6 +500,10 @@ server <- function(input, output, session) {
   }
   )
   
+  observeEvent(input$prepa_questionnaire,{
+    CurrentValues$page <- "pquestionnaire"
+  }
+               )
   observeEvent(input$gt_inst4, {  #Check whether an input has been made:
     CurrentValues$page <- "inst4"
   }
