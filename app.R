@@ -75,7 +75,7 @@ ui <- fluidPage(#theme=shinytheme("slate"),
   
     uiOutput("MainAction"),
     tags$style(type = "text/css", ".recalculating {opacity: 1.0;}"),   # Prevents gray screen during Sys.sleep()
-    tags$head(
+    tags$head( #script geolocalisation
       tags$script(HTML(js)),
       tags$script('
   $(document).ready(function () {
@@ -142,7 +142,7 @@ server <- function(input, output, session) {
     dbDisconnect(db)
 
   }
- 
+  # page of geolocalisation
   PageLayouts <- reactive(
     {
     if (CurrentValues$page == "testGeo")
@@ -176,7 +176,7 @@ server <- function(input, output, session) {
                            verbatimTextOutput("long"),
                            verbatimTextOutput("geolocation"))
            ),
-           conditionalPanel(
+           conditionalPanel( #condition for continue on the app
              condition =c("input.geolocation == true"),
              HTML("<p1> Veuillez continuer si la valeur du dessus est TRUE.</p1>")
            ),    
@@ -348,13 +348,172 @@ server <- function(input, output, session) {
           HTML("<br>"),
           p("Cliquer sur Continuer."),
           HTML("<br>"),
-          actionButton(inputId = "prepa_questionnaire", label = "Continuer")
+          actionButton(inputId = "l_phase", label = "Continuer")
           )
           
         )
       } # end of second part
+    if (CurrentValues$page =="learning_phase")
+    {
+      return(
+        list(
+          h3("Debut de l'éxperience"),
+          HTML("<p>Vous allez devoir mémoriser les sons et images associer ci-dessous et sur les pages suivantes. Faites de votre mieux pour vous rappeller des
+               associations le test est prévu dans les pages suivantes.</p>"),
+          tags$audio(src = "1.wav", type = "audio/wav", controls = NA),
+          tags$img(src="forme1sn.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          tags$audio(src = "4.wav", type = "audio/wav", controls = NA),
+          tags$img(src="forme2sn.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+          tags$img(src="forme3sn.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          tags$audio(src = "16.wav", type = "audio/wav", controls = NA),
+          tags$img(src="forme4sn.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          
+          actionButton(inputId = "l_phase2", label = "Continuer")
+        )
+      )
+    }
+    if (CurrentValues$page == "learning_phase2")
+  {
+    return(
+      list(
+        h5("Ce sont les memes formes et sons mais dans un ordre différent."),
+        tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+        tags$img(src="forme3sn.png", type="img/png",controls = NA),
+        HTML("<hr>"),
+        tags$audio(src = "16.wav", type = "audio/wav", controls = NA),
+        tags$img(src="forme4sn.png", type="img/png",controls = NA),
+        HTML("<hr>"),
+        tags$audio(src = "1.wav", type = "audio/wav", controls = NA),
+        tags$img(src="forme1sn.png", type="img/png",controls = NA),
+        HTML("<hr>"),
+        tags$audio(src = "4.wav", type = "audio/wav", controls = NA),
+        tags$img(src="forme2sn.png", type="img/png",controls = NA),
+        HTML("<hr>"),
+        actionButton(inputId = "l_phase3", label = "Continuer")
+      )
+    )
+    }
       
-    if (CurrentValues$page == "pquestionnaire")
+    if (CurrentValues$page == "learning_phase3")
+    {
+      return(
+        list(
+          h5("C'est la dernière partie de reconnaissance des pairs.Vous serez tester sur ce que vous avez retenus ensuite."),
+          tags$audio(src = "16.wav", type = "audio/wav", controls = NA),
+          tags$img(src="forme4sn.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          tags$audio(src = "4.wav", type = "audio/wav", controls = NA),
+          tags$img(src="forme2sn.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+          tags$img(src="forme3sn.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          tags$audio(src = "1.wav", type = "audio/wav", controls = NA),
+          tags$img(src="forme1sn.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          actionButton(inputId = "prepa1_questionnaire", label = "Continuer")
+        )
+      )
+    }
+    if (CurrentValues$page == "p1questionnaire")
+    {
+      return(
+        list(
+          h3("Apprentissage"),
+          HTML("<hr>"),
+          tags$audio(src = "4.wav", type = "audio/wav", controls = NA),
+          HTML("<hr>"),
+          tags$img(src="test1.png", type="img/png",controls = NA),
+          tags$img(src="test2bis.png", type="img/png",controls = NA),
+          tags$img(src="test3.png", type="img/png",controls = NA),
+          tags$img(src="test4.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          radioButtons("iconschoices1","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+          HTML("<br>"),
+         # h4(textOutput("ScorePictures")),
+          conditionalPanel(
+            condition =c("input.iconschoices1 == '1' || input.iconschoices1 =='2' || input.iconschoices1 =='3' || input.iconschoices1 == '4'"),
+            actionButton(inputId = "prepa2_questionnaire",label = "Étape suivante")
+          )
+        )
+      )
+    }
+      
+    if (CurrentValues$page == "p2questionnaire")
+    {
+      return(
+        list(
+          h3("Apprentissage"),
+          HTML("<hr>"),
+          tags$audio(src = "16.wav", type = "audio/wav", controls = NA),
+          HTML("<hr>"),
+          tags$img(src="test1.png", type="img/png",controls = NA),
+          tags$img(src="test2bis.png", type="img/png",controls = NA),
+          tags$img(src="test3.png", type="img/png",controls = NA),
+          tags$img(src="test4.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          radioButtons("iconschoices2","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+          HTML("<br>"),
+         # h4(textOutput("ScorePictures")),
+          conditionalPanel(
+            condition =c("input.iconschoices2 == '1' || input.iconschoices2 =='2' || input.iconschoices2 =='3' || input.iconschoices2 == '4'"),
+            actionButton(inputId = "prepa3_questionnaire",label = "Étape suivante")
+          )
+        )
+      )
+    }
+    
+    if (CurrentValues$page == "p3questionnaire")
+    {
+      return(
+        list(
+          h3("Apprentissage"),
+          HTML("<hr>"),
+          tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+          HTML("<hr>"),
+          tags$img(src="test1.png", type="img/png",controls = NA),
+          tags$img(src="test2bis.png", type="img/png",controls = NA),
+          tags$img(src="test3.png", type="img/png",controls = NA),
+          tags$img(src="test4.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          radioButtons("iconschoices3","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+          HTML("<br>"),
+          conditionalPanel(
+            condition =c("input.iconschoices3 == '1' || input.iconschoices3 =='2' || input.iconschoices3 =='3' || input.iconschoices3 == '4'"),
+            actionButton(inputId = "prepa4_questionnaire",label = "Étape suivante")
+          )
+        )
+      )
+    }
+      
+    if (CurrentValues$page == "p4questionnaire")
+    {
+      return(
+        list(
+          h3("Apprentissage"),
+          HTML("<hr>"),
+          tags$audio(src = "16.wav", type = "audio/wav", controls = NA),
+          HTML("<hr>"),
+          tags$img(src="test1.png", type="img/png",controls = NA),
+          tags$img(src="test2bis.png", type="img/png",controls = NA),
+          tags$img(src="test3.png", type="img/png",controls = NA),
+          tags$img(src="test4.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          radioButtons("iconschoices4","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+          HTML("<br>"),
+          conditionalPanel(
+            condition =c("input.iconschoices4 == '1' || input.iconschoices4 =='2' || input.iconschoices4 =='3' || input.iconschoices4 == '4'"),
+            actionButton(inputId = "prepa5_questionnaire",label = "Étape suivante")
+          )
+        )
+      )
+    }
+    if (CurrentValues$page == "p5questionnaire")
     {
       return(
         list(
@@ -367,25 +526,53 @@ server <- function(input, output, session) {
           tags$img(src="test3.png", type="img/png",controls = NA),
           tags$img(src="test4.png", type="img/png",controls = NA),
           HTML("<hr>"),
-          radioButtons("iconschoices","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+          radioButtons("iconschoices5","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
           HTML("<br>"),
           conditionalPanel(
-            condition =c("input.iconschoices == '1' || input.iconschoices =='2' || input.iconschoices =='3' || input.iconschoices == '4'"),
-            actionButton(inputId = "gt_inst4",label = "Étape suivante")
-          )
+            condition =c("input.iconschoices5 == '1' || input.iconschoices5 =='2' || input.iconschoices5 =='3' || input.iconschoices5 == '4'"),
+            actionButton(inputId = "prepa6_questionnaire",label = "Étape suivante")
         )
       )
+    )
     }
+      if (CurrentValues$page == "p6questionnaire")
+      {
+        return(
+          list(
+            h3("Apprentissage"),
+            HTML("<hr>"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test2bis.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("iconschoices6","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            conditionalPanel(
+              condition =c("input.iconschoices6 == '1' || input.iconschoices6 =='2' || input.iconschoices6 =='3' || input.iconschoices6 == '4'"),
+              actionButton(inputId = "gt_inst4",label = "Étape suivante")
+            )
+          )
+        )
+      }
       
     if (CurrentValues$page == "inst4")
       {
         
       return(
         list(
+          h3("Merci pour votre participation à la phase d'apprentissage!"),
           HTML("<br><br><br>"),
           h4(textOutput("headphone_check")),
+          h4(textOutput("ScorePictures")),
+          h4(textOutput("ScorePictures2")),
           HTML("<br><br><br>"),
-          h3("Merci pour votre participation !")
+          conditionalPanel( # a voir la condition ne semble pas prise en compte
+            condition = "output.ScorePictures",
+            actionButton(inputId = "prepa3_questionnaire",label = "Étape suivante")
+          )
         )
       )
     } # end of test
@@ -423,6 +610,35 @@ server <- function(input, output, session) {
   #save datas when clicked on the button next
   observeEvent(input$gt_mobile_detection,{
     saveData(formData())
+  })
+  #score for the first survey
+  scoredata1 <- 0
+  observeEvent(input$gt_inst4, {
+    if (input$iconschoices1 == "2"){
+      
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$iconschoices2 == "4"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$iconschoices3 == "3"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$iconschoices4 == "4"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$iconschoices5 == "1"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$iconschoices6 == "3"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (scoredata1 > 4 ){
+    output$ScorePictures <- renderText(paste("Votre score :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+    
+    }
+    else 
+    output$ScorePictures2 <- renderText(paste("Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
   })
   
   observeEvent(input$q4, {  #Check whether an input has been made:
@@ -500,10 +716,42 @@ server <- function(input, output, session) {
   }
   )
   
-  observeEvent(input$prepa_questionnaire,{
-    CurrentValues$page <- "pquestionnaire"
+  observeEvent(input$l_phase,  {
+    CurrentValues$page <- "learning_phase"
+    }
+    )
+  observeEvent(input$l_phase2,  {
+    CurrentValues$page <- "learning_phase2"
+  }
+  )
+  observeEvent(input$l_phase3,  {
+    CurrentValues$page <- "learning_phase3"
+  }
+  )
+  observeEvent(input$prepa1_questionnaire,{
+    CurrentValues$page <- "p1questionnaire"
   }
                )
+  observeEvent(input$prepa2_questionnaire,{
+    CurrentValues$page <- "p2questionnaire"
+  }
+  )
+  observeEvent(input$prepa3_questionnaire,{
+    CurrentValues$page <- "p3questionnaire"
+  }
+  )
+  observeEvent(input$prepa4_questionnaire,{
+    CurrentValues$page <- "p4questionnaire"
+  }
+  )
+  observeEvent(input$prepa5_questionnaire,{
+    CurrentValues$page <- "p5questionnaire"
+  }
+  )
+  observeEvent(input$prepa6_questionnaire,{
+    CurrentValues$page <- "p6questionnaire"
+  }
+  )
   observeEvent(input$gt_inst4, {  #Check whether an input has been made:
     CurrentValues$page <- "inst4"
   }
