@@ -56,6 +56,7 @@ choice.country <- as.list(countries.list$countryname)
 # informations upload to database
 fieldsAll <- c("age","country","gender","language","earphones","impairment","browser","connection")
 ipadress <- my_ip()
+global <- reactiveValues(info  = "public info: I can be seen by everyone", amountUser = 0, userIdToPlay = 1, survey = 0)
 
 ui <- fluidPage(#theme=shinytheme("slate"),
   headerPanel(
@@ -107,6 +108,13 @@ server <- function(input, output, session) {
   #create an object for storing reactive values
   
   CurrentValues <- reactiveValues(page = "testGeo")
+  
+  local <- reactiveValues(secret = paste0("My secret number is ", sample(6, 1)))
+  
+  observe({
+    isolate(global$amountUser <-  global$amountUser + 1)
+    isolate(local$userId <- global$amountUser)
+  })
                                   
   # Send dynamic UI to ui - DON'T CHANGE!
   output$MainAction <- renderUI({
@@ -568,15 +576,134 @@ server <- function(input, output, session) {
           h4(textOutput("headphone_check")),
           h4(textOutput("ScorePictures")),
           h4(textOutput("ScorePictures2")),
+          h4(textOutput("ScorePictures3")),
           HTML("<br><br><br>"),
           conditionalPanel( # a voir la condition ne semble pas prise en compte
             condition = "output.ScorePictures",
-            actionButton(inputId = "prepa3_questionnaire",label = "Étape suivante")
+            actionButton(inputId = "test_multi",label = "Étape suivante")
+          ),
+          conditionalPanel(
+            condition ="output.ScorePictures3",
+            actionButton(inputId = "LastChance_questionnaire1", label ="Étape suivante")
           )
+          
         )
       )
     } # end of test
+    if (CurrentValues$page == "LastChancequestionnaire1")
+    {
+      return(
+        list(
+          h3("Dernière chance "),
+          HTML("<hr>"),
+          tags$audio(src = "1.wav", type = "audio/wav", controls = NA),
+          HTML("<hr>"),
+          tags$img(src="test1.png", type="img/png",controls = NA),
+          tags$img(src="test2bis.png", type="img/png",controls = NA),
+          tags$img(src="test3.png", type="img/png",controls = NA),
+          tags$img(src="test4.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          radioButtons("LCiconschoices1","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+          HTML("<br>"),
+          conditionalPanel(
+            condition =c("input.LCiconschoices1 == '1' || input.LCiconschoices1 =='2' || input.LCiconschoices1 =='3' || input.LCiconschoices1 == '4'"),
+            actionButton(inputId = "LastChance_questionnaire2",label = "Étape suivante")
+          )
+          
+        )
+      )
+    }
+    if (CurrentValues$page == "LastChancequestionnaire2") 
+    {
+     return(
+       list(
+         h3("Dernière chance "),
+         HTML("<hr>"),
+         tags$audio(src = "16.wav", type = "audio/wav", controls = NA),
+         HTML("<hr>"),
+         tags$img(src="test1.png", type="img/png",controls = NA),
+         tags$img(src="test2bis.png", type="img/png",controls = NA),
+         tags$img(src="test3.png", type="img/png",controls = NA),
+         tags$img(src="test4.png", type="img/png",controls = NA),
+         HTML("<hr>"),
+         radioButtons("LCiconschoices2","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+         HTML("<br>"),
+         conditionalPanel(
+           condition =c("input.LCiconschoices2 == '1' || input.LCiconschoices2 =='2' || input.LCiconschoices2 =='3' || input.LCiconschoices2 == '4'"),
+           actionButton(inputId = "LastChance_questionnaire3",label = "Étape suivante")
+         )
+         
+       )
+     )
+    }
+    if (CurrentValues$page == "LastChancequestionnaire3")  
+    {
+     return(
+       list(
+         h3("Dernière chance "),
+         HTML("<hr>"),
+         tags$audio(src = "4.wav", type = "audio/wav", controls = NA),
+         HTML("<hr>"),
+         tags$img(src="test1.png", type="img/png",controls = NA),
+         tags$img(src="test2bis.png", type="img/png",controls = NA),
+         tags$img(src="test3.png", type="img/png",controls = NA),
+         tags$img(src="test4.png", type="img/png",controls = NA),
+         HTML("<hr>"),
+         radioButtons("LCiconschoices3","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+         HTML("<br>"),
+         conditionalPanel(
+           condition =c("input.LCiconschoices3 == '1' || input.LCiconschoices3 =='2' || input.LCiconschoices3 =='3' || input.LCiconschoices3 == '4'"),
+           actionButton(inputId = "LastChance_questionnaire4",label = "Étape suivante")
+         ) 
+       )
+     )
+    }
+    if(CurrentValues$page == "LastChancequestionnaire4")
+    {
+      return(
+        list(
+          h3("Dernière chance "),
+          HTML("<hr>"),
+          tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+          HTML("<hr>"),
+          tags$img(src="test1.png", type="img/png",controls = NA),
+          tags$img(src="test2bis.png", type="img/png",controls = NA),
+          tags$img(src="test3.png", type="img/png",controls = NA),
+          tags$img(src="test4.png", type="img/png",controls = NA),
+          HTML("<hr>"),
+          radioButtons("LCiconschoices4","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+          HTML("<br>"),
+          conditionalPanel(
+            condition =c("input.LCiconschoices4 == '1' || input.LCiconschoices4 =='2' || input.LCiconschoices4 =='3' || input.LCiconschoices4 == '4'"),
+            actionButton(inputId = "gt_inst5",label = "Étape suivante")
+          )
+        )
+      )
+    }
+    
+      if(CurrentValues$page == "inst5")  
+        return(
+          list(
+            h3("Merci pour votre participation à la phase de rattrapage!"),
+            HTML("<br><br><br>"),
+            h4(textOutput("ScorePictures2")),
+            h4(textOutput("ScorePictures4")),
+            conditionalPanel(
+              condition ="output.ScorePictures4",
+              actionButton(inputId = "test_multi", label ="Étape suivante")
+            )
+          )
+        )
+  
       
+    if (CurrentValues$page == "testmulti")
+    {
+      return(
+        list(
+          uiOutput("moreControls")
+        )
+      )
+    }
     }
   ) # end of PageLayouts
   
@@ -611,7 +738,36 @@ server <- function(input, output, session) {
   observeEvent(input$gt_mobile_detection,{
     saveData(formData())
   })
+  scoredata2 <- 0
+  observeEvent(input$gt_inst5, {
+    if (input$LCiconschoices1 == "1"){
+      scoredata2 <- scoredata2 + 1
+    }
+    if (input$LCiconschoices2 == "4"){
+      scoredata2 <- scoredata2 + 1
+    }
+    if (input$LCiconschoices3 == "2"){
+      scoredata2 <- scoredata2 + 1
+    }
+    if (input$LCiconschoices4 == "3"){
+      scoredata2 <- scoredata2 + 1
+    }
+    if (scoredata2 == 4){
+      output$ScorePictures4 <- renderText(paste("Votre score est de :",scoredata2,"/ 4. Félicitations. Vous pouvez continuer le test "))  
+    }
+    else
+      output$ScorePictures2 <- renderText(paste("Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+  }
+               )
   #score for the first survey
+  
+  #observeEvent(input$finish, {
+   # enterfinish <- 0
+    #enterfinish <- enterfinish + 1
+    #enterfinish2 <- enterfinish + 1
+   # output$enterfinish2 <- renderText(paste("ceci est le nombre de fois ou vous avez appuyer sur finish:",enterfinish))  
+   # })
+  
   scoredata1 <- 0
   observeEvent(input$gt_inst4, {
     if (input$iconschoices1 == "2"){
@@ -633,13 +789,21 @@ server <- function(input, output, session) {
     if (input$iconschoices6 == "3"){
       scoredata1 <- scoredata1 + 1
     }
-    if (scoredata1 > 4 ){
-    output$ScorePictures <- renderText(paste("Votre score :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+    if (scoredata1 == 5 ){
+    output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
     
     }
-    else 
+    if (scoredata1 == 6 ){
+      output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+      
+    }
+    if (scoredata1 == 4){
+    output$ScorePictures3 <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Vous allez devoir procéder à un autre test.Il faut que vous ayez tout juste pour pouvoir continuer ne lacher rien.Bonne chance."))  
+    }
+    else if (scoredata1 < 4){
     output$ScorePictures2 <- renderText(paste("Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
-  })
+    }
+    })
   
   observeEvent(input$q4, {  #Check whether an input has been made:
     score <- 0
@@ -681,6 +845,278 @@ server <- function(input, output, session) {
     output$headphone_check <- renderText(paste("Votre score :",score,"/ 6"))
     }
   )
+  observeEvent(input$finish8,{
+    scoreduo <- 0
+    if (input$DuoSurvey1J2 == 3) {
+      scoreduo <- scoreduo + 1
+    }
+    if (input$DuoSurvey2J2 == 3) {
+      
+      scoreduo <- scoreduo + 1
+    }
+    if (input$DuoSurvey3J2 == 3 ) {
+      scoreduo <- scoreduo + 1
+    }
+    if (input$DuoSurvey4J2 == 3 ) {
+      scoreduo <- scoreduo + 1
+    }
+    output$FinalScoreDuo <- renderText(paste("Votre score en duo est de :",scoreduo,"/8"))
+    
+  })
+  observeEvent(input$finish,{
+    global$survey <- 1
+    global$userIdToPlay <- 3 - global$userIdToPlay # assumes two players (for MVE)
+  })
+  
+  observeEvent(input$finish2,{
+    global$survey <- 2
+    global$userIdToPlay <- 3 - global$userIdToPlay # assumes two players (for MVE)
+  })
+  observeEvent(input$finish3,{
+    global$survey <- 3
+    global$userIdToPlay <- 3 - global$userIdToPlay # assumes two players (for MVE)
+  })
+  observeEvent(input$finish4,{
+    global$survey <- 4
+    global$userIdToPlay <- 3 - global$userIdToPlay # assumes two players (for MVE)
+  })
+  observeEvent(input$finish5,{
+    global$survey <- 5
+    global$userIdToPlay <- 3 - global$userIdToPlay # assumes two players (for MVE)
+  })
+  observeEvent(input$finish6,{
+    global$survey <- 6
+    global$userIdToPlay <- 3 - global$userIdToPlay # assumes two players (for MVE)
+  })
+  observeEvent(input$finish7,{
+    global$survey <- 7
+    global$userIdToPlay <- 3 - global$userIdToPlay # assumes two players (for MVE)
+  })
+  observeEvent(input$finish8,{
+    global$survey <- 8
+    global$userIdToPlay <- 3 - global$userIdToPlay # assumes two players (for MVE)
+    output$End <- renderText(paste("Merci d'avoir rempli le test vous pouvez sortir avec le bouton suivant."))
+  })
+  
+  output$moreControls <- renderUI({
+    global$userIdToPlay
+    isolate({
+      if(local$userId == global$userIdToPlay && global$survey == 0){
+        return(
+          tagList(
+            h2("A votre tour de jouer.Veuillez choisir la figure correspondant au son suivant:"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test2bis.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("Duosurvey1J1","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            #h4(textOutput("enterfinish2")),
+            #selectInput("a", "b", letters),
+            conditionalPanel(
+              condition =c("input.Duosurvey1J1 == '1' || input.Duosurvey1J1 =='2' || input.Duosurvey1J1 =='3' || input.Duosurvey1J1 == '4'"),
+              actionButton("finish", "Valider J1Q1")
+            )
+            
+            
+          )
+        )
+      }else if(local$userId == global$userIdToPlay && global$survey == 1){
+        return(
+          tagList(
+            h2("A votre tour de jouer.Veuillez choisir la figure correspondant au son suivant:"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test2bis.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("DuoSurvey1J2","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            #h4(textOutput("enterfinish2")),
+            #selectInput("a", "b", letters),
+            conditionalPanel(
+              condition =c("input.Duosurvey1J2 == '1' || input.Duosurvey1J2 =='2' || input.Duosurvey1J2 =='3' || input.Duosurvey1J2 == '4'"),
+              actionButton("finish2", "Valider J2Q1")
+            )
+          )
+        )
+      }else if(local$userId == global$userIdToPlay && global$survey == 2){
+        return(
+          tagList(
+            h2("A votre tour de jouer.Veuillez choisir la figure correspondant au son suivant:"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("DuoSurvey2J1","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            #h4(textOutput("enterfinish2")),
+            #selectInput("a", "b", letters),
+            conditionalPanel(
+              condition =c("input.DuoSurvey2J1 == '1' || input.DuoSurvey2J1 =='2' || input.DuoSurvey2J1 =='3' || input.DuoSurvey2J1 == '4'"),
+              actionButton("finish3", "Valider J1Q2")
+            )
+            
+            
+            
+          )
+        )
+      }else if(local$userId == global$userIdToPlay && global$survey == 3){
+        return(
+          tagList(
+            h2("A votre tour de jouer.Veuillez choisir la figure correspondant au son suivant:"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            tags$img(src="test4.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("DuoSurvey2J2","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            #h4(textOutput("enterfinish2")),
+            #selectInput("a", "b", letters),
+            conditionalPanel(
+              condition =c("input.DuoSurvey2J2 == '1' || input.DuoSurvey2J2 =='2' || input.DuoSurvey2J2 =='3' || input.DuoSurvey2J2 == '4'"),
+              actionButton("finish4", "Valider J2Q2")
+            )
+            
+            
+          )
+        )
+      }else if(local$userId == global$userIdToPlay && global$survey == 4){
+        return(
+          tagList(
+            h2("A votre tour de jouer.Veuillez choisir la figure correspondant au son suivant:"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("DuoSurvey3J1","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            #h4(textOutput("enterfinish2")),
+            #selectInput("a", "b", letters),
+            conditionalPanel(
+              condition =c("input.DuoSurvey3J1 == '1' || input.DuoSurvey3J1 =='2' || input.DuoSurvey3J1 =='3' || input.DuoSurvey3J1 == '4'"),
+              actionButton("finish5", "Valider J1Q3")
+            )
+            
+            
+            
+          )
+        )
+      }else if(local$userId == global$userIdToPlay && global$survey == 5){
+        return(
+          tagList(
+            h2("A votre tour de jouer.Veuillez choisir la figure correspondant au son suivant:"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            tags$img(src="test3.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("DuoSurvey3J2","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            #h4(textOutput("enterfinish2")),
+            #selectInput("a", "b", letters),
+            conditionalPanel(
+              condition =c("input.DuoSurvey3J2 == '1' || input.DuoSurvey3J2 =='2' || input.DuoSurvey3J2 =='3' || input.DuoSurvey3J2 == '4'"),
+              actionButton("finish6", "Valider J2Q3")
+            )
+            
+            
+          )
+        )
+      }else if(local$userId == global$userIdToPlay && global$survey == 6){
+        return(
+          tagList(
+            h2("A votre tour de jouer.Veuillez choisir la figure correspondant au son suivant:"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("DuoSurvey4J1","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            #h4(textOutput("enterfinish2")),
+            #selectInput("a", "b", letters),
+            conditionalPanel(
+              condition =c("input.DuoSurvey4J1 == '1' || input.DuoSurvey4J1 =='2' || input.DuoSurvey4J1 =='3' || input.DuoSurvey4J1 == '4'"),
+              actionButton("finish7", "Valider J1Q4")
+            )
+            
+          )
+        )
+      }else if(local$userId == global$userIdToPlay && global$survey == 7){
+        return(
+          tagList(
+            h2("A votre tour de jouer.Veuillez choisir la figure correspondant au son suivant:"),
+            HTML("<hr>"),
+            tags$audio(src = "13.wav", type = "audio/wav", controls = NA),
+            HTML("<hr>"),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            tags$img(src="test1.png", type="img/png",controls = NA),
+            HTML("<hr>"),
+            radioButtons("DuoSurvey4J2","",choices=c(1,2,3,4),selected=character(0),inline=TRUE),
+            HTML("<br>"),
+            #h4(textOutput("enterfinish2")),
+            #selectInput("a", "b", letters),
+            conditionalPanel(
+              condition =c("input.DuoSurvey4J2 == '1' || input.DuoSurvey4J2 =='2' || input.DuoSurvey4J2 =='3' || input.DuoSurvey4J2 == '4'"),
+              actionButton("finish8", "Valider J2Q4")
+            )
+            
+            
+            
+          )
+        )
+      }else if(local$userId == global$userIdToPlay && global$survey == 8){
+        return(
+          tagList(
+            h2("Bravo"),
+            HTML("<hr>"),
+            h4(textOutput("FinalScoreDuo")),
+            HTML("<hr>"),
+            h4(" Merci d'avoir rempli ces formulaires vous avez maintenant terminer le test."),
+            actionButton(inputId = "test_multi", label ="Étape suivante")
+            
+          )
+        )
+      }else{
+        return(
+          list(
+          h2("Au tour de l'autre utilisateur de répondre.Veuillez patienter"),
+          HTML("<hr>"),
+          #h4(textOutput("enterfinish2")),
+          h4(textOutput("FinalScoreDuo")),
+          HTML("<hr>"),
+          h4(textOutput("End")),
+         # actionButton(inputId = "gt_inst4",label = "Étape suivante"),
+          conditionalPanel(
+            condition ="output.End",
+            actionButton(inputId = "test_multi", label ="Étape suivante")
+          )
+          )
+        )
+      }
+    })
+  })
   
   observeEvent(input$index,{
     CurrentValues$page <- "index"
@@ -752,8 +1188,32 @@ server <- function(input, output, session) {
     CurrentValues$page <- "p6questionnaire"
   }
   )
+  observeEvent(input$LastChance_questionnaire1,{
+    CurrentValues$page <- "LastChancequestionnaire1"
+  }
+  )
+  observeEvent(input$LastChance_questionnaire2,{
+    CurrentValues$page <- "LastChancequestionnaire2"
+  }
+  )
+  observeEvent(input$LastChance_questionnaire3,{
+    CurrentValues$page <- "LastChancequestionnaire3"
+  }
+  )
+  observeEvent(input$LastChance_questionnaire4,{
+    CurrentValues$page <- "LastChancequestionnaire4"
+  }
+  )
+  observeEvent(input$gt_inst5, {  #Check whether an input has been made:
+    CurrentValues$page <- "inst5"
+  }
+  )
   observeEvent(input$gt_inst4, {  #Check whether an input has been made:
     CurrentValues$page <- "inst4"
+  }
+  )
+  observeEvent(input$test_multi, {  #Check whether an input has been made:
+    CurrentValues$page <- "testmulti"
   }
   )
   
