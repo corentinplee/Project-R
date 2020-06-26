@@ -1,0 +1,12 @@
+#progress{
+    width:600px;
+    margin: auto;
+    height: 50px;
+}
+
+#progress span{
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  left:0;
+}

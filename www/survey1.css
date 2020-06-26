@@ -1,0 +1,109 @@
+body{
+    background-image: url("fondecran.jpg");
+}
+h2{
+    color:white;
+}
+h3{
+   color:white;
+}
+h4{
+  color:white;
+}
+.cc-selector input{
+    margin:0;padding:0;
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+}
+
+.Learningphase{background-image:url(GForme.png);}
+.Learning_phase2{background-image:url(GForme2.png);}
+.Learning_phase3{background-image:url(GForme3.png);}
+.Learning_phase4{background-image:url(GForme4.png);}
+.Learningphasebis{background-image:url(GForme.png);}
+.Learning_phase2bis{background-image:url(GForme2.png);}
+.Learning_phase3bis{background-image:url(GForme3.png);}
+.Learning_phase4bis{background-image:url(GForme4.png);}
+.Learning_phase5{background-image:url(GForme.png);}
+.Learning_phase6{background-image:url(GForme2.png);}
+.Learning_phase7{background-image:url(GForme3.png);}
+.Learning_phase8{background-image:url(GForme4.png);}
+.Learning_phase9{background-image:url(GForme.png);}
+.Learning_phase10{background-image:url(GForme2.png);}
+.Learning_phase11{background-image:url(GForme3.png);}
+.Learning_phase12{background-image:url(GForme4.png);}
+.Learning_phase13{background-image:url(GForme.png);}
+.Learning_phase14{background-image:url(GForme2.png);}
+.Learning_phase15{background-image:url(GForme3.png);}
+.Learning_phase16{background-image:url(GForme4.png);}
+.Learning_phase17{background-image:url(GForme.png);}
+.Learning_phase18{background-image:url(GForme2.png);}
+.Learning_phase19{background-image:url(GForme3.png);}
+.Learning_phase20{background-image:url(GForme4.png);}
+.Learning_phase21{background-image:url(GForme.png);}
+.Learning_phase22{background-image:url(GForme2.png);}
+.Learning_phase23{background-image:url(GForme3.png);}
+.Learning_phase24{background-image:url(GForme4.png);}
+.Learning_phase5bis{background-image:url(GForme.png);}
+.Learning_phase6bis{background-image:url(GForme2.png);}
+.Learning_phase7bis{background-image:url(GForme3.png);}
+.Learning_phase8bis{background-image:url(GForme4.png);}
+.Learning_phase9bis{background-image:url(GForme.png);}
+.Learning_phase10bis{background-image:url(GForme2.png);}
+.Learning_phase11bis{background-image:url(GForme3.png);}
+.Learning_phase12bis{background-image:url(GForme4.png);}
+.Learning_phase13bis{background-image:url(GForme.png);}
+.Learning_phase14bis{background-image:url(GForme2.png);}
+.Learning_phase15bis{background-image:url(GForme3.png);}
+.Learning_phase16bis{background-image:url(GForme4.png);}
+.Learning_phase17bis{background-image:url(GForme.png);}
+.Learning_phase18bis{background-image:url(GForme2.png);}
+.Learning_phase19bis{background-image:url(GForme3.png);}
+.Learning_phase20bis{background-image:url(GForme4.png);}
+.Learning_phase21bis{background-image:url(GForme.png);}
+.Learning_phase22bis{background-image:url(GForme2.png);}
+.Learning_phase23bis{background-image:url(GForme3.png);}
+.Learning_phase24bis{background-image:url(GForme4.png);}
+.Last_chanceq1{background-image:url(GForme.png);}
+.Last_chanceq2{background-image:url(GForme2.png);}
+.Last_chanceq3{background-image:url(GForme3.png);}
+.Last_chanceq4{background-image:url(GForme4.png);}
+.Last_chanceq5{background-image:url(GForme.png);}
+.Last_chanceq6{background-image:url(GForme2.png);}
+.Last_chanceq7{background-image:url(GForme3.png);}
+.Last_chanceq8{background-image:url(GForme4.png);}
+.Last_chanceq9{background-image:url(GForme.png);}
+.Last_chanceq10{background-image:url(GForme2.png);}
+.Last_chanceq11{background-image:url(GForme3.png);}
+.Last_chanceq12{background-image:url(GForme4.png);}
+.Last_chanceq13{background-image:url(GForme.png);}
+.Last_chanceq14{background-image:url(GForme2.png);}
+.Last_chanceq15{background-image:url(GForme3.png);}
+.Last_chanceq16{background-image:url(GForme4.png);}
+
+.cc-selector input:active +.drinkcard-cc{opacity: .9;}
+.cc-selector input:checked +.drinkcard-cc{
+    -webkit-filter: none;
+       -moz-filter: none;
+            filter: none;
+}
+.drinkcard-cc{
+    border: 1mm ridge rgba(0, 255, 0, .6);
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:200px;height:150px;
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+            filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+.drinkcard-cc:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
