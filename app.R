@@ -152,7 +152,6 @@ server <- function(input, output, session) {
         return(
           list(
             includeCSS("www/stylewelcomesalut.css"),
-            actionButton(inputId = "prepa1_questionnaire",label = "Aller directement au duo"),
             h1("Deux paires d'oreilles valent mieux qu'une!"),
             h2("Jouez à relier sons et images avec votre partenaire."),
             HTML("<br>"),
@@ -162,8 +161,8 @@ server <- function(input, output, session) {
                manière identique à elle ou lui!"),
             p("Dans un premier temps nous allons vous apprendre quatre correspondances de base entre sons et images.Lorsque cela sera fait,vous
                pourrez commencer à jouer à deux!"),
-            HTML("<br>"),
             h4("Vous ne pouvez participer à ce jeu qu'une fois."),
+            h4("Contributeurs à l'application : Noël NGUYEN et Corentin PLEE"),
             radioButtons("participation","Est-ce votre première participation?",choices=c("Oui","Non"),selected=character(0),inline=FALSE),
             conditionalPanel(
               condition ="input.participation == 'Oui'",
@@ -215,15 +214,14 @@ server <- function(input, output, session) {
               ),
               mainPanel(
                 h3("Veuillez patienter jusqu'a ce que vous soyez 2 dans la salle d'attente. Le nombre d'utilisateur dans la salle est indiqué dans la partie gauche de l'écran."),
-                actionButton(inputId = "test_Geo",label = "Continuer"),
-                #conditionalPanel(
-                #  condition = "output.player1",
-                #  actionButton(inputId = "checkingButton1",label="Faites part de votre arriver en appuyant ici!")
-                #),
-                #conditionalPanel(
-                #  condition = "output.player2",
-                #  actionButton(inputId = "checkingButton2",label="Faites part de votre arriver en appuyant ici!")
-                #),
+                conditionalPanel(
+                  condition = "output.player1",
+                  actionButton(inputId = "test_Geo",label = "Continuer")
+                ),
+                conditionalPanel(
+                  condition = "output.player2",
+                  actionButton(inputId = "test_Geo",label = "Continuer")
+                ),
                 #h4(textOutput("Only1user")),
                 #h4(textOutput("Only2user")),
                 #conditionalPanel( #condition for continue on the app
@@ -550,14 +548,9 @@ server <- function(input, output, session) {
         return(
           list(
             h4(textOutput("headphone_check")),
-            h4(textOutput("headphone_check2")),
             h4(textOutput("headphone_check3")),
             conditionalPanel(
               condition = "output.headphone_check",
-              actionButton(inputId = "L_survey",label = "Continuer")
-            ),
-            conditionalPanel(
-              condition = "output.headphone_check2",
               actionButton(inputId = "L_survey",label = "Continuer")
             )
           )
@@ -732,10 +725,11 @@ server <- function(input, output, session) {
               condition= c("input.test_phase == 'Test1Question1Answer1' || input.test_phase =='Test1Question1Answer2' ||input.test_phase == 'Test1Question1Answer3' || input.test_phase == 'Test1Question1Answer4' "),
               actionButton(inputId = "prepa2_questionnaire",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p1q1.html"),
             tags$audio(src = "4.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
-            HTML("<hr>"),
+           
             
             h4(textOutput("ScorePictures"))
           )
@@ -754,6 +748,7 @@ server <- function(input, output, session) {
               condition= c("input.test_phase2 == 'Test1Question2Answer1' || input.test_phase2 =='Test1Question2Answer2' ||input.test_phase2 == 'Test1Question2Answer3' || input.test_phase2 == 'Test1Question2Answer4' "),
               actionButton(inputId = "prepa3_questionnaire",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p2q2.html"),
             
@@ -774,6 +769,7 @@ server <- function(input, output, session) {
               condition= c("input.test_phase3 == 'Test1Question3Answer1' || input.test_phase3 =='Test1Question3Answer2' ||input.test_phase3 == 'Test1Question3Answer3' || input.test_phase3 == 'Test1Question3Answer4' "),
               actionButton(inputId = "prepa4_questionnaire",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p3q3.html")
             
@@ -793,6 +789,7 @@ server <- function(input, output, session) {
               condition= c("input.test_phase4 == 'Test1Question4Answer1' || input.test_phase4 =='Test1Question4Answer2' ||input.test_phase4 == 'Test1Question4Answer3' || input.test_phase4 == 'Test1Question4Answer4' "),
               actionButton(inputId = "prepa5_questionnaire",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p4q4.html")
           )
@@ -810,6 +807,7 @@ server <- function(input, output, session) {
               condition= c("input.test_phase5 == 'Test1Question5Answer1' || input.test_phase5 =='Test1Question5Answer2' ||input.test_phase5 == 'Test1Question5Answer3' || input.test_phase5 == 'Test1Question5Answer4' "),
               actionButton(inputId = "prepa6_questionnaire",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p5q5.html")
           )
@@ -826,9 +824,10 @@ server <- function(input, output, session) {
             conditionalPanel(
               condition= c("input.test_phase6 == 'Test1Question6Answer1' || input.test_phase6 =='Test1Question6Answer2' ||input.test_phase6 == 'Test1Question6Answer3' || input.test_phase6 == 'Test1Question6Answer4' "),
               actionButton(inputId = "gt_inst4",label = "Étape suivante"),
+            ),
+              HTML("<hr>"),
               includeCSS("www/surveyp.css"),
-              includeHTML("www/survey_p6q6.html"),
-            )
+              includeHTML("www/survey_p6q6.html")
           )
         )
       }
@@ -863,13 +862,14 @@ server <- function(input, output, session) {
             h3("Dernière chance "),
             HTML("<hr>"),
             tags$audio(src = "1.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
-            HTML("<hr>"),
+
             conditionalPanel(
               condition= c("input.Last_questionnaire1 == 'Last_chanceq1' || input.Last_questionnaire1 =='Last_chanceq2' ||input.Last_questionnaire1 == 'Last_chanceq3' || input.Last_questionnaire1 == 'Last_chanceq4' "),
               actionButton(inputId = "LastChance_questionnaire2",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
-            includeHTML("www/LastChance_questionnaire1.html"),
+            includeHTML("www/LastChance_questionnaire1.html")
             
           )
         )
@@ -884,6 +884,7 @@ server <- function(input, output, session) {
               condition= c("input.Last_questionnaire2 == 'Last_chanceq5' || input.Last_questionnaire2 =='Last_chanceq6' ||input.Last_questionnaire2 == 'Last_chanceq7' || input.Last_questionnaire2 == 'Last_chanceq8' "),
               actionButton(inputId = "LastChance_questionnaire3",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/LastChance_questionnaire2.html"),
             tags$audio(src = "16.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;")
@@ -900,6 +901,7 @@ server <- function(input, output, session) {
               condition= c("input.Last_questionnaire3 == 'Last_chanceq9' || input.Last_questionnaire3 =='Last_chanceq10' ||input.Last_questionnaire3 == 'Last_chanceq11' || input.Last_questionnaire3 == 'Last_chanceq12' "),
               actionButton(inputId = "LastChance_questionnaire4",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/LastChance_questionnaire3.html"),
             tags$audio(src = "4.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;")
@@ -918,6 +920,7 @@ server <- function(input, output, session) {
               condition= c("input.Last_questionnaire4 == 'Last_chanceq13' || input.Last_questionnaire4 =='Last_chanceq14' ||input.Last_questionnaire4 == 'Last_chanceq15' || input.Last_questionnaire4 == 'Last_chanceq16' "),
               actionButton(inputId = "gt_inst5",label = "Étape suivante")
             ),
+            HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/LastChance_questionnaire4.html")
           )
@@ -4623,14 +4626,23 @@ server <- function(input, output, session) {
       output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
       
     }
-    if (scoredata1 == 6 ){
+    else if (scoredata1 == 6 ){
       output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
       
     }
-    if (scoredata1 == 4){
+    else if (scoredata1 == 4){
       output$ScorePictures3 <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Vous allez devoir procéder à un autre test.Il faut que vous ayez tout juste pour pouvoir continuer ne lacher rien.Bonne chance."))  
     }
-    else if (scoredata1 < 4){
+    else if (scoredata1 == 3){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 2){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 1){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 0){
       output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
     }
   })
@@ -4678,8 +4690,8 @@ server <- function(input, output, session) {
     if (score == 6){
       output$headphone_check <- renderText(paste("Votre score est de :",score,"/ 6. Bravo vous pouvez continuer."))
     }
-    if (score == 5){
-      output$headphone_check2 <- renderText(paste("Votre score est de :",score,"/ 6. Bravo vous pouvez continuer."))  
+    else if (score == 5){
+      output$headphone_check <- renderText(paste("Votre score est de :",score,"/ 6. Bravo vous pouvez continuer."))  
     }
     else if (score == 4){
       output$headphone_check3 <- renderText(paste("Votre score est de :",score,"/ 6. Malheuresement il n'est pas suffisant pour pouvoir continuer."))
