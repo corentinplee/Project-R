@@ -3,7 +3,7 @@ library(shinythemes)
 library(RMySQL)
 library(pingr)
 library(shinyjs)
-
+# regler le 1 + 3 
 # (c) Gervasio Marchand, https://g3rv4.com/2017/08/shiny-detect-mobile-browsers
 
 mobileDetect <- function(inputId, value = 0) {
@@ -152,6 +152,7 @@ server <- function(input, output, session) {
         return(
           list(
             includeCSS("www/stylewelcomesalut.css"),
+            actionButton(inputId = "test_multi",label = "Étape suivante"),
             h1("Deux paires d'oreilles valent mieux qu'une!"),
             h2("Jouez à relier sons et images avec votre partenaire."),
             HTML("<br>"),
@@ -719,13 +720,12 @@ server <- function(input, output, session) {
       {
         return(
           list(
-            h3("Test sur votre apprentissage"),
+            h3("Test sur votre apprentissage 1/6"),
             HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.test_phase == 'Test1Question1Answer1' || input.test_phase =='Test1Question1Answer2' ||input.test_phase == 'Test1Question1Answer3' || input.test_phase == 'Test1Question1Answer4' "),
-              actionButton(inputId = "prepa2_questionnaire",label = "Étape suivante")
-            ),
-            HTML("<hr>"),
+            #conditionalPanel(
+            #  condition= c("input.test_phase == 'Test1Question1Answer1' || input.test_phase =='Test1Question1Answer2' ||input.test_phase == 'Test1Question1Answer3' || input.test_phase == 'Test1Question1Answer4' "),
+            #  actionButton(inputId = "prepa2_questionnaire",label = "Étape suivante")
+            #),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p1q1.html"),
             tags$audio(src = "4.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
@@ -740,15 +740,13 @@ server <- function(input, output, session) {
       {
         return(
           list(
-            h3("Test sur votre apprentissage"),
+            h3("Test sur votre apprentissage 2/6"),
             HTML("<hr>"),
             tags$audio(src = "16.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
-            HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.test_phase2 == 'Test1Question2Answer1' || input.test_phase2 =='Test1Question2Answer2' ||input.test_phase2 == 'Test1Question2Answer3' || input.test_phase2 == 'Test1Question2Answer4' "),
-              actionButton(inputId = "prepa3_questionnaire",label = "Étape suivante")
-            ),
-            HTML("<hr>"),
+            #conditionalPanel(
+            #  condition= c("input.test_phase2 == 'Test1Question2Answer1' || input.test_phase2 =='Test1Question2Answer2' ||input.test_phase2 == 'Test1Question2Answer3' || input.test_phase2 == 'Test1Question2Answer4' "),
+            #  actionButton(inputId = "prepa3_questionnaire",label = "Étape suivante")
+            #),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p2q2.html"),
             
@@ -761,15 +759,13 @@ server <- function(input, output, session) {
       {
         return(
           list(
-            h3("Test sur votre apprentissage"),
+            h3("Test sur votre apprentissage 3/6"),
             HTML("<hr>"),
             tags$audio(src = "13.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
-            HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.test_phase3 == 'Test1Question3Answer1' || input.test_phase3 =='Test1Question3Answer2' ||input.test_phase3 == 'Test1Question3Answer3' || input.test_phase3 == 'Test1Question3Answer4' "),
-              actionButton(inputId = "prepa4_questionnaire",label = "Étape suivante")
-            ),
-            HTML("<hr>"),
+            #conditionalPanel(
+            #  condition= c("input.test_phase3 == 'Test1Question3Answer1' || input.test_phase3 =='Test1Question3Answer2' ||input.test_phase3 == 'Test1Question3Answer3' || input.test_phase3 == 'Test1Question3Answer4' "),
+            #  actionButton(inputId = "prepa4_questionnaire",label = "Étape suivante")
+            #),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p3q3.html")
             
@@ -781,15 +777,13 @@ server <- function(input, output, session) {
       {
         return(
           list(
-            h3("Test sur votre apprentissage"),
+            h3("Test sur votre apprentissage 4/6"),
             HTML("<hr>"),
             tags$audio(src = "16.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
-            HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.test_phase4 == 'Test1Question4Answer1' || input.test_phase4 =='Test1Question4Answer2' ||input.test_phase4 == 'Test1Question4Answer3' || input.test_phase4 == 'Test1Question4Answer4' "),
-              actionButton(inputId = "prepa5_questionnaire",label = "Étape suivante")
-            ),
-            HTML("<hr>"),
+            #conditionalPanel(
+            #  condition= c("input.test_phase4 == 'Test1Question4Answer1' || input.test_phase4 =='Test1Question4Answer2' ||input.test_phase4 == 'Test1Question4Answer3' || input.test_phase4 == 'Test1Question4Answer4' "),
+            #  actionButton(inputId = "prepa5_questionnaire",label = "Étape suivante")
+            #),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p4q4.html")
           )
@@ -799,15 +793,13 @@ server <- function(input, output, session) {
       {
         return(
           list(
-            h3("Test sur votre apprentissage"),
+            h3("Test sur votre apprentissage 5/6"),
             HTML("<hr>"),
             tags$audio(src = "1.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
-            HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.test_phase5 == 'Test1Question5Answer1' || input.test_phase5 =='Test1Question5Answer2' ||input.test_phase5 == 'Test1Question5Answer3' || input.test_phase5 == 'Test1Question5Answer4' "),
-              actionButton(inputId = "prepa6_questionnaire",label = "Étape suivante")
-            ),
-            HTML("<hr>"),
+            #conditionalPanel(
+            #  condition= c("input.test_phase5 == 'Test1Question5Answer1' || input.test_phase5 =='Test1Question5Answer2' ||input.test_phase5 == 'Test1Question5Answer3' || input.test_phase5 == 'Test1Question5Answer4' "),
+            #  actionButton(inputId = "prepa6_questionnaire",label = "Étape suivante")
+            #),
             includeCSS("www/surveyp.css"),
             includeHTML("www/survey_p5q5.html")
           )
@@ -817,15 +809,13 @@ server <- function(input, output, session) {
       {
         return(
           list(
-            h3("Test sur votre apprentissage"),
+            h3("Test sur votre apprentissage 6/6"),
             HTML("<hr>"),
             tags$audio(src = "13.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
-            HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.test_phase6 == 'Test1Question6Answer1' || input.test_phase6 =='Test1Question6Answer2' ||input.test_phase6 == 'Test1Question6Answer3' || input.test_phase6 == 'Test1Question6Answer4' "),
-              actionButton(inputId = "gt_inst4",label = "Étape suivante"),
-            ),
-              HTML("<hr>"),
+            #conditionalPanel(
+            #  condition= c("input.test_phase6 == 'Test1Question6Answer1' || input.test_phase6 =='Test1Question6Answer2' ||input.test_phase6 == 'Test1Question6Answer3' || input.test_phase6 == 'Test1Question6Answer4' "),
+            #  actionButton(inputId = "gt_inst4",label = "Étape suivante"),
+            #),
               includeCSS("www/surveyp.css"),
               includeHTML("www/survey_p6q6.html")
           )
@@ -950,10 +940,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !"),
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choicebis == 'Question1Answer1bis' || input.phase_choicebis =='Question1Answer2bis' ||input.phase_choicebis == 'Question1Answer3bis' || input.phase_choicebis == 'Question1Answer4bis' "),
-                  actionButton("finish2", "Valider J2Q1", onclick = "myFunction()")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choicebis == 'Question1Answer1bis' || input.phase_choicebis =='Question1Answer2bis' ||input.phase_choicebis == 'Question1Answer3bis' || input.phase_choicebis == 'Question1Answer4bis' "),
+                #  actionButton("finish2", "Valider J2Q1", onclick = "myFunction()")
+                #),
                 HTML("<hr>"),
                 includeCSS("www/survey.css"),
                 includeHTML("www/survey_q1bis.html"),
@@ -980,10 +970,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !"),
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice == 'Question1Answer1' || input.phase_choice =='Question1Answer2' ||input.phase_choice == 'Question1Answer3' || input.phase_choice == 'Question1Answer4' "),
-                  actionButton("finish", "Valider J1Q1")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice == 'Question1Answer1' || input.phase_choice =='Question1Answer2' ||input.phase_choice == 'Question1Answer3' || input.phase_choice == 'Question1Answer4' "),
+                #  actionButton("finish", "Valider J1Q1")
+                #),
                 HTML("<hr>"),
                 includeCSS("www/survey.css"),
                 includeHTML("www/survey_q1.html"),
@@ -1343,10 +1333,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !"),
                        ),
                        mainPanel(
-                         conditionalPanel(
-                           condition= c("input.phase_choice2 == 'Question2Answer1' || input.phase_choice2 =='Question2Answer2' ||input.phase_choice2 == 'Question2Answer3' || input.phase_choice2 == 'Question2Answer4' "),
-                           actionButton("finish3", "Valider J1Q2")
-                         ),
+                         #conditionalPanel(
+                         # condition= c("input.phase_choice2 == 'Question2Answer1' || input.phase_choice2 =='Question2Answer2' ||input.phase_choice2 == 'Question2Answer3' || input.phase_choice2 == 'Question2Answer4' "),
+                         # actionButton("finish3", "Valider J1Q2")
+                         #),
                          tags$div(`id`="Nouvelledivision",
                                   `style`="display:none"),
                          tags$audio(src = "16.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
@@ -1404,10 +1394,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice2bis == 'Question2Answer1bis' || input.phase_choice2bis =='Question2Answer2bis' ||input.phase_choice2bis == 'Question2Answer3bis' || input.phase_choice2bis == 'Question2Answer4bis' "),
-                  actionButton("finish4", "Valider J2Q2")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice2bis == 'Question2Answer1bis' || input.phase_choice2bis =='Question2Answer2bis' ||input.phase_choice2bis == 'Question2Answer3bis' || input.phase_choice2bis == 'Question2Answer4bis' "),
+                #  actionButton("finish4", "Valider J2Q2")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "16.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -1772,10 +1762,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice3 == 'Question3Answer1' || input.phase_choice3 =='Question3Answer2' ||input.phase_choice3 == 'Question3Answer3' || input.phase_choice3 == 'Question3Answer4' "),
-                  actionButton("finish5", "Valider J1Q3")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice3 == 'Question3Answer1' || input.phase_choice3 =='Question3Answer2' ||input.phase_choice3 == 'Question3Answer3' || input.phase_choice3 == 'Question3Answer4' "),
+                #  actionButton("finish5", "Valider J1Q3")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "13.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -1800,10 +1790,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice3bis == 'Question3Answer1bis' || input.phase_choice3bis =='Question3Answer2bis' ||input.phase_choice3bis == 'Question3Answer3bis' || input.phase_choice3bis == 'Question3Answer4bis' "),
-                  actionButton("finish6", "Valider J2Q3")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice3bis == 'Question3Answer1bis' || input.phase_choice3bis =='Question3Answer2bis' ||input.phase_choice3bis == 'Question3Answer3bis' || input.phase_choice3bis == 'Question3Answer4bis' "),
+                #  actionButton("finish6", "Valider J2Q3")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "13.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -2184,10 +2174,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice4 == 'Question4Answer1' || input.phase_choice4 =='Question4Answer2' ||input.phase_choice4 == 'Question4Answer3' || input.phase_choice4 == 'Question4Answer4' "),
-                  actionButton("finish7", "Valider J1Q4")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice4 == 'Question4Answer1' || input.phase_choice4 =='Question4Answer2' ||input.phase_choice4 == 'Question4Answer3' || input.phase_choice4 == 'Question4Answer4' "),
+                #  actionButton("finish7", "Valider J1Q4")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "16.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -2211,10 +2201,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice4bis == 'Question4Answer1bis' || input.phase_choice4bis =='Question4Answer2bis' ||input.phase_choice4bis == 'Question4Answer3bis' || input.phase_choice4bis == 'Question4Answer4bis' "),
-                  actionButton("finish8", "Valider J2Q4")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice4bis == 'Question4Answer1bis' || input.phase_choice4bis =='Question4Answer2bis' ||input.phase_choice4bis == 'Question4Answer3bis' || input.phase_choice4bis == 'Question4Answer4bis' "),
+                #  actionButton("finish8", "Valider J2Q4")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "16.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -2608,10 +2598,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice5 == 'Question5Answer1' || input.phase_choice5 =='Question5Answer2' ||input.phase_choice5 == 'Question5Answer3' || input.phase_choice5 == 'Question5Answer4' "),
-                  actionButton("finish9", "Valider J1Q5")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice5 == 'Question5Answer1' || input.phase_choice5 =='Question5Answer2' ||input.phase_choice5 == 'Question5Answer3' || input.phase_choice5 == 'Question5Answer4' "),
+                #  actionButton("finish9", "Valider J1Q5")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "1.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -2638,10 +2628,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice5bis == 'Question5Answer1bis' || input.phase_choice5bis =='Question5Answer2bis' ||input.phase_choice5bis == 'Question5Answer3bis' || input.phase_choice5bis == 'Question5Answer4bis' "),
-                  actionButton("finish10", "Valider J2Q5")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice5bis == 'Question5Answer1bis' || input.phase_choice5bis =='Question5Answer2bis' ||input.phase_choice5bis == 'Question5Answer3bis' || input.phase_choice5bis == 'Question5Answer4bis' "),
+                #  actionButton("finish10", "Valider J2Q5")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "1.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -2965,10 +2955,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice6 == 'Question6Answer1' || input.phase_choice6 =='Question6Answer2' ||input.phase_choice6 == 'Question6Answer3' || input.phase_choice6 == 'Question6Answer4' "),
-                  actionButton("finish11", "Valider J1Q6")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice6 == 'Question6Answer1' || input.phase_choice6 =='Question6Answer2' ||input.phase_choice6 == 'Question6Answer3' || input.phase_choice6 == 'Question6Answer4' "),
+                #  actionButton("finish11", "Valider J1Q6")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "13.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -2995,10 +2985,10 @@ server <- function(input, output, session) {
                   partenaire avait une réponse similaire.Suite a chaque associations vous serez rediriger vers une page de résultat. Bon courage !")
               ),
               mainPanel(
-                conditionalPanel(
-                  condition= c("input.phase_choice6bis == 'Question6Answer1bis' || input.phase_choice6bis =='Question6Answer2bis' ||input.phase_choice6bis == 'Question6Answer3bis' || input.phase_choice6bis == 'Question6Answer4bis' "),
-                  actionButton("finish12", "Valider J2Q6")
-                ),
+                #conditionalPanel(
+                #  condition= c("input.phase_choice6bis == 'Question6Answer1bis' || input.phase_choice6bis =='Question6Answer2bis' ||input.phase_choice6bis == 'Question6Answer3bis' || input.phase_choice6bis == 'Question6Answer4bis' "),
+                #  actionButton("finish12", "Valider J2Q6")
+                #),
                 HTML("<hr>"),
                 tags$audio(src = "13.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
                 includeCSS("www/survey.css"),
@@ -3429,13 +3419,13 @@ server <- function(input, output, session) {
   # joueur 2 reponse 1
   
   # increment a variable if this answer is selected 
-  observeEvent(input$finish2,{
+  observeEvent(input$L_phasebis,{
     if(input$phase_choicebis == "Question1Answer1bis"){
       trueanswer$correctAnswer <- 5
     }
   })
   # display the answer of the player himself
-  observeEvent(input$finish2,{
+  observeEvent(input$L_phasebis,{
     if(trueanswer$correctAnswer == 5){
       output$rep5 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3447,12 +3437,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish2,{
+  observeEvent(input$L_phase2bis,{
     if(input$phase_choicebis == "Question1Answer2bis"){
       trueanswer$correctAnswer <- 6
     }
   })
-  observeEvent(input$finish2,{
+  observeEvent(input$L_phase2bis,{
     if(trueanswer$correctAnswer == 6){
       output$rep6 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3463,13 +3453,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish2,{
+  observeEvent(input$L_phase3bis,{
     if(input$phase_choicebis == "Question1Answer3bis"){
       trueanswer$correctAnswer <- 7
       
     }
   })
-  observeEvent(input$finish2,{
+  observeEvent(input$L_phase3bis,{
     if(trueanswer$correctAnswer == 7){
       output$rep7 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3479,13 +3469,13 @@ server <- function(input, output, session) {
       output$rep7 <- renderText(paste("La réponse de votre duo(en orange).")) 
     }
   })
-  observeEvent(input$finish2,{
+  observeEvent(input$L_phase4bis,{
     if(input$phase_choicebis == "Question1Answer4bis"){
       trueanswer$correctAnswer <- 8
     }
     
   })
-  observeEvent(input$finish2,{
+  observeEvent(input$L_phase4bis,{
     if(trueanswer$correctAnswer == 8){
       output$rep8 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3496,12 +3486,12 @@ server <- function(input, output, session) {
     }
   })
   #fin joueur 2 reponse 1 debut reponse 1 joueur 1
-  observeEvent(input$finish,{
+  observeEvent(input$L_phase,{
     if(input$phase_choice == "Question1Answer1"){
       trueanswer$correctAnswer2 <- 1
     }
   })
-  observeEvent(input$finish,{
+  observeEvent(input$L_phase,{
     if(trueanswer$correctAnswer2 == 1){
       output$rep1 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3511,12 +3501,12 @@ server <- function(input, output, session) {
       output$rep1 <- renderText(paste("La réponse de votre duo(en orange)."))  
     }
   })
-  observeEvent(input$finish,{
+  observeEvent(input$L_phase2,{
     if(input$phase_choice == "Question1Answer2"){
       trueanswer$correctAnswer2 <- 2
     }
   })
-  observeEvent(input$finish,{
+  observeEvent(input$L_phase2,{
     if(trueanswer$correctAnswer2 == 2){
       output$rep2 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3527,12 +3517,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish,{
+  observeEvent(input$L_phase3,{
     if(input$phase_choice == "Question1Answer3"){
       trueanswer$correctAnswer2 <- 3
     }
   })
-  observeEvent(input$finish,{
+  observeEvent(input$L_phase3,{
     if(trueanswer$correctAnswer2 == 3){
       output$rep3 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3543,13 +3533,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish,{
+  observeEvent(input$L_phase4,{
     if(input$phase_choice == "Question1Answer4"){
       trueanswer$correctAnswer2 <- 4
     }
     
   })
-  observeEvent(input$finish,{
+  observeEvent(input$L_phase4,{
     if(trueanswer$correctAnswer2 == 4){
       output$rep4 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3610,12 +3600,12 @@ server <- function(input, output, session) {
   #fin reponse 1 joueur 1
   
   # joueur 2 reponse 2
-  observeEvent(input$finish4,{
+  observeEvent(input$L_phase5bis,{
     if(input$phase_choice2bis == "Question2Answer1bis"){
       trueanswer$correctAnswer3 <- 13
     }
   })
-  observeEvent(input$finish4,{
+  observeEvent(input$L_phase5bis,{
     if(trueanswer$correctAnswer3 == 13){
       output$rep13 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3626,12 +3616,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish4,{
+  observeEvent(input$L_phase6bis,{
     if(input$phase_choice2bis == "Question2Answer2bis"){
       trueanswer$correctAnswer3 <- 14
     }
   })
-  observeEvent(input$finish4,{
+  observeEvent(input$L_phase6bis,{
     if(trueanswer$correctAnswer3 == 14){
       output$rep14 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3642,13 +3632,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish4,{
+  observeEvent(input$L_phase7bis,{
     if(input$phase_choice2bis == "Question2Answer3bis"){
       trueanswer$correctAnswer3 <- 15
       
     }
   })
-  observeEvent(input$finish4,{
+  observeEvent(input$L_phase7bis,{
     if(trueanswer$correctAnswer3 == 15){
       output$rep15 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3658,13 +3648,13 @@ server <- function(input, output, session) {
       output$rep15 <- renderText(paste("La réponse de votre duo(en orange).")) 
     }
   })
-  observeEvent(input$finish4,{
+  observeEvent(input$L_phase8bis,{
     if(input$phase_choice2bis == "Question2Answer4bis"){
       trueanswer$correctAnswer3 <- 16
     }
     
   })
-  observeEvent(input$finish4,{
+  observeEvent(input$L_phase8bis,{
     if(trueanswer$correctAnswer3 == 16){
       output$rep16 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3676,12 +3666,12 @@ server <- function(input, output, session) {
   })
   
   #fin joueur 2 reponse 2 debut reponse 2 joueur 1
-  observeEvent(input$finish3,{
+  observeEvent(input$L_phase5,{
     if(input$phase_choice2 == "Question2Answer1"){
       trueanswer$correctAnswer4 <- 9
     }
   })
-  observeEvent(input$finish3,{
+  observeEvent(input$L_phase5,{
     if(trueanswer$correctAnswer4 == 9){
       output$rep9 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3691,12 +3681,12 @@ server <- function(input, output, session) {
       output$rep9 <- renderText(paste("La réponse de votre duo(en orange)."))  
     }
   })
-  observeEvent(input$finish3,{
+  observeEvent(input$L_phase6,{
     if(input$phase_choice2 == "Question2Answer2"){
       trueanswer$correctAnswer4 <- 10
     }
   })
-  observeEvent(input$finish3,{
+  observeEvent(input$L_phase6,{
     if(trueanswer$correctAnswer4 == 10){
       output$rep10 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3707,12 +3697,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish3,{
+  observeEvent(input$L_phase7,{
     if(input$phase_choice2 == "Question2Answer3"){
       trueanswer$correctAnswer4 <- 11
     }
   })
-  observeEvent(input$finish3,{
+  observeEvent(input$L_phase7,{
     if(trueanswer$correctAnswer4 == 11){
       output$rep11 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3723,13 +3713,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish3,{
+  observeEvent(input$L_phase8,{
     if(input$phase_choice2 == "Question2Answer4"){
       trueanswer$correctAnswer4 <- 12
     }
     
   })
-  observeEvent(input$finish3,{
+  observeEvent(input$L_phase8,{
     if(trueanswer$correctAnswer4 == 12){
       output$rep12 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3796,12 +3786,12 @@ server <- function(input, output, session) {
   #fin reponse 2 joueur 1
   
   # joueur 2 reponse 3
-  observeEvent(input$finish6,{
+  observeEvent(input$L_phase9bis,{
     if(input$phase_choice3bis == "Question3Answer1bis"){
       trueanswer$correctAnswer5 <- 21
     }
   })
-  observeEvent(input$finish6,{
+  observeEvent(input$L_phase9bis,{
     if(trueanswer$correctAnswer5 == 21){
       output$rep21 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3812,12 +3802,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish6,{
+  observeEvent(input$L_phase10bis,{
     if(input$phase_choice3bis == "Question3Answer2bis"){
       trueanswer$correctAnswer5 <- 22
     }
   })
-  observeEvent(input$finish6,{
+  observeEvent(input$L_phase10bis,{
     if(trueanswer$correctAnswer5 == 22){
       output$rep22 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3828,13 +3818,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish6,{
+  observeEvent(input$L_phase11bis,{
     if(input$phase_choice3bis == "Question3Answer3bis"){
       trueanswer$correctAnswer5 <- 23
       
     }
   })
-  observeEvent(input$finish6,{
+  observeEvent(input$L_phase11bis,{
     if(trueanswer$correctAnswer5 == 23){
       output$rep23 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3844,13 +3834,13 @@ server <- function(input, output, session) {
       output$rep23 <- renderText(paste("La réponse de votre duo(en orange).")) 
     }
   })
-  observeEvent(input$finish6,{
+  observeEvent(input$L_phase12bis,{
     if(input$phase_choice3bis == "Question3Answer4bis"){
       trueanswer$correctAnswer5 <- 24
     }
     
   })
-  observeEvent(input$finish6,{
+  observeEvent(input$L_phase12bis,{
     if(trueanswer$correctAnswer5 == 24){
       output$rep24 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3862,12 +3852,12 @@ server <- function(input, output, session) {
   })
   
   #fin joueur 2 reponse 3 debut reponse 3 joueur 1
-  observeEvent(input$finish5,{
+  observeEvent(input$L_phase9,{
     if(input$phase_choice3 == "Question3Answer1"){
       trueanswer$correctAnswer7 <- 17
     }
   })
-  observeEvent(input$finish5,{
+  observeEvent(input$L_phase9,{
     if(trueanswer$correctAnswer7 == 17){
       output$rep17 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3877,12 +3867,12 @@ server <- function(input, output, session) {
       output$rep17 <- renderText(paste("La réponse de votre duo(en orange)."))  
     }
   })
-  observeEvent(input$finish5,{
+  observeEvent(input$L_phase10,{
     if(input$phase_choice3 == "Question3Answer2"){
       trueanswer$correctAnswer7 <- 18
     }
   })
-  observeEvent(input$finish5,{
+  observeEvent(input$L_phase10,{
     if(trueanswer$correctAnswer7 == 18){
       output$rep18 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3893,12 +3883,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish5,{
+  observeEvent(input$L_phase11,{
     if(input$phase_choice3 == "Question3Answer3"){
       trueanswer$correctAnswer7 <- 19
     }
   })
-  observeEvent(input$finish5,{
+  observeEvent(input$L_phase11,{
     if(trueanswer$correctAnswer7 == 19){
       output$rep19 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3909,13 +3899,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish5,{
+  observeEvent(input$L_phase12,{
     if(input$phase_choice3 == "Question3Answer4"){
       trueanswer$correctAnswer7 <- 20
     }
     
   })
-  observeEvent(input$finish5,{
+  observeEvent(input$L_phase12,{
     if(trueanswer$correctAnswer7 == 20){
       output$rep20 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -3989,12 +3979,12 @@ server <- function(input, output, session) {
   })
   
   # joueur 2 reponse 4
-  observeEvent(input$finish8,{
+  observeEvent(input$L_phase13bis,{
     if(input$phase_choice4bis == "Question4Answer1bis"){
       trueanswer$correctAnswer8 <- 29
     }
   })
-  observeEvent(input$finish8,{
+  observeEvent(input$L_phase13bis,{
     if(trueanswer$correctAnswer8 == 29){
       output$rep29 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4005,12 +3995,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish8,{
+  observeEvent(input$L_phase14bis,{
     if(input$phase_choice4bis == "Question4Answer2bis"){
       trueanswer$correctAnswer8 <- 30
     }
   })
-  observeEvent(input$finish8,{
+  observeEvent(input$L_phase14bis,{
     if(trueanswer$correctAnswer8 == 30){
       output$rep30 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4021,13 +4011,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish8,{
+  observeEvent(input$L_phase15bis,{
     if(input$phase_choice4bis == "Question4Answer3bis"){
       trueanswer$correctAnswer8 <- 31
       
     }
   })
-  observeEvent(input$finish8,{
+  observeEvent(input$L_phase15bis,{
     if(trueanswer$correctAnswer8 == 31){
       output$rep31 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4037,13 +4027,13 @@ server <- function(input, output, session) {
       output$rep31 <- renderText(paste("La réponse de votre duo(en orange).")) 
     }
   })
-  observeEvent(input$finish8,{
+  observeEvent(input$L_phase16bis,{
     if(input$phase_choice4bis == "Question4Answer4bis"){
       trueanswer$correctAnswer8 <- 32
     }
     
   })
-  observeEvent(input$finish8,{
+  observeEvent(input$L_phase16bis,{
     if(trueanswer$correctAnswer8 == 32){
       output$rep32 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4055,12 +4045,12 @@ server <- function(input, output, session) {
   })
   
   #fin joueur 2 reponse 4 debut reponse 4 joueur 1
-  observeEvent(input$finish7,{
+  observeEvent(input$L_phase13,{
     if(input$phase_choice4 == "Question4Answer1"){
       trueanswer$correctAnswer9 <- 25
     }
   })
-  observeEvent(input$finish7,{
+  observeEvent(input$L_phase13,{
     if(trueanswer$correctAnswer9 == 25){
       output$rep25 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4070,12 +4060,12 @@ server <- function(input, output, session) {
       output$rep25 <- renderText(paste("La réponse de votre duo(en orange)."))  
     }
   })
-  observeEvent(input$finish7,{
+  observeEvent(input$L_phase14,{
     if(input$phase_choice4 == "Question4Answer2"){
       trueanswer$correctAnswer9 <- 26
     }
   })
-  observeEvent(input$finish7,{
+  observeEvent(input$L_phase14,{
     if(trueanswer$correctAnswer9 == 26){
       output$rep26 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4086,12 +4076,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish7,{
+  observeEvent(input$L_phase15,{
     if(input$phase_choice4 == "Question4Answer3"){
       trueanswer$correctAnswer9 <- 27
     }
   })
-  observeEvent(input$finish7,{
+  observeEvent(input$L_phase15,{
     if(trueanswer$correctAnswer9 == 27){
       output$rep27 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4102,13 +4092,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish7,{
+  observeEvent(input$L_phase16,{
     if(input$phase_choice4 == "Question4Answer4"){
       trueanswer$correctAnswer9 <- 28
     }
     
   })
-  observeEvent(input$finish7,{
+  observeEvent(input$L_phase16,{
     if(trueanswer$correctAnswer9 == 28){
       output$rep28 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4187,12 +4177,12 @@ server <- function(input, output, session) {
   #fin reponse 4 joueur 1
   
   # joueur 2 reponse 5
-  observeEvent(input$finish10,{
+  observeEvent(input$L_phase17bis,{
     if(input$phase_choice5bis == "Question5Answer1bis"){
       trueanswer$correctAnswer10 <- 37
     }
   })
-  observeEvent(input$finish10,{
+  observeEvent(input$L_phase17bis,{
     if(trueanswer$correctAnswer10 == 37){
       output$rep37 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4203,12 +4193,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish10,{
+  observeEvent(input$L_phase18bis,{
     if(input$phase_choice5bis == "Question5Answer2bis"){
       trueanswer$correctAnswer10 <- 38
     }
   })
-  observeEvent(input$finish10,{
+  observeEvent(input$L_phase18bis,{
     if(trueanswer$correctAnswer10 == 38){
       output$rep38 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4219,13 +4209,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish10,{
+  observeEvent(input$L_phase19bis,{
     if(input$phase_choice5bis == "Question5Answer3bis"){
       trueanswer$correctAnswer10 <- 39
       
     }
   })
-  observeEvent(input$finish10,{
+  observeEvent(input$L_phase19bis,{
     if(trueanswer$correctAnswer10 == 39){
       output$rep39 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4235,13 +4225,13 @@ server <- function(input, output, session) {
       output$rep39 <- renderText(paste("La réponse de votre duo(en orange).")) 
     }
   })
-  observeEvent(input$finish10,{
+  observeEvent(input$L_phase20bis,{
     if(input$phase_choice5bis == "Question5Answer4bis"){
       trueanswer$correctAnswer10 <- 40
     }
     
   })
-  observeEvent(input$finish10,{
+  observeEvent(input$L_phase20bis,{
     if(trueanswer$correctAnswer10 == 40){
       output$rep40 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4253,12 +4243,12 @@ server <- function(input, output, session) {
   })
   
   #fin joueur 2 reponse 4 debut reponse 4 joueur 1
-  observeEvent(input$finish9,{
+  observeEvent(input$L_phase17,{
     if(input$phase_choice5 == "Question5Answer1"){
       trueanswer$correctAnswer11 <- 33
     }
   })
-  observeEvent(input$finish9,{
+  observeEvent(input$L_phase17,{
     if(trueanswer$correctAnswer11 == 33){
       output$rep33 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4268,12 +4258,12 @@ server <- function(input, output, session) {
       output$rep33 <- renderText(paste("La réponse de votre duo(en orange)."))  
     }
   })
-  observeEvent(input$finish9,{
+  observeEvent(input$L_phase18,{
     if(input$phase_choice5 == "Question5Answer2"){
       trueanswer$correctAnswer11 <- 34
     }
   })
-  observeEvent(input$finish9,{
+  observeEvent(input$L_phase18,{
     if(trueanswer$correctAnswer11 == 34){
       output$rep34 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4284,12 +4274,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish9,{
+  observeEvent(input$L_phase19,{
     if(input$phase_choice5 == "Question5Answer3"){
       trueanswer$correctAnswer11 <- 35
     }
   })
-  observeEvent(input$finish9,{
+  observeEvent(input$L_phase19,{
     if(trueanswer$correctAnswer11 == 35){
       output$rep35 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4300,13 +4290,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish9,{
+  observeEvent(input$L_phase20,{
     if(input$phase_choice5 == "Question5Answer4"){
       trueanswer$correctAnswer11 <- 36
     }
     
   })
-  observeEvent(input$finish9,{
+  observeEvent(input$L_phase20,{
     if(trueanswer$correctAnswer11 == 36){
       output$rep36 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4391,12 +4381,12 @@ server <- function(input, output, session) {
   #fin reponse 4 joueur 1
   
   # joueur 2 reponse 6
-  observeEvent(input$finish12,{
+  observeEvent(input$L_phase21bis,{
     if(input$phase_choice6bis == "Question6Answer1bis"){
       trueanswer$correctAnswer12 <- 45
     }
   })
-  observeEvent(input$finish12,{
+  observeEvent(input$L_phase21bis,{
     if(trueanswer$correctAnswer12 == 45){
       output$rep45 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4407,12 +4397,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish12,{
+  observeEvent(input$L_phase22bis,{
     if(input$phase_choice6bis == "Question6Answer2bis"){
       trueanswer$correctAnswer12 <- 46
     }
   })
-  observeEvent(input$finish12,{
+  observeEvent(input$L_phase22bis,{
     if(trueanswer$correctAnswer12 == 46){
       output$rep46 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4423,13 +4413,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish12,{
+  observeEvent(input$L_phase23bis,{
     if(input$phase_choice6bis == "Question6Answer3bis"){
       trueanswer$correctAnswer12 <- 47
       
     }
   })
-  observeEvent(input$finish12,{
+  observeEvent(input$L_phase23bis,{
     if(trueanswer$correctAnswer12 == 47){
       output$rep47 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4439,13 +4429,13 @@ server <- function(input, output, session) {
       output$rep47 <- renderText(paste("La réponse de votre duo(en orange).")) 
     }
   })
-  observeEvent(input$finish12,{
+  observeEvent(input$L_phase24bis,{
     if(input$phase_choice6bis == "Question6Answer4bis"){
       trueanswer$correctAnswer12 <- 48
     }
     
   })
-  observeEvent(input$finish12,{
+  observeEvent(input$L_phase24bis,{
     if(trueanswer$correctAnswer12 == 48){
       output$rep48 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4457,12 +4447,12 @@ server <- function(input, output, session) {
   })
   
   #fin joueur 2 reponse 4 debut reponse 4 joueur 1
-  observeEvent(input$finish11,{
+  observeEvent(input$L_phase21,{
     if(input$phase_choice6 == "Question6Answer1"){
       trueanswer$correctAnswer13 <- 41
     }
   })
-  observeEvent(input$finish11,{
+  observeEvent(input$L_phase21,{
     if(trueanswer$correctAnswer13 == 41){
       output$rep41 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4472,12 +4462,12 @@ server <- function(input, output, session) {
       output$rep41 <- renderText(paste("La réponse de votre duo(en orange)."))  
     }
   })
-  observeEvent(input$finish11,{
+  observeEvent(input$L_phase22,{
     if(input$phase_choice6 == "Question6Answer2"){
       trueanswer$correctAnswer13 <- 42
     }
   })
-  observeEvent(input$finish11,{
+  observeEvent(input$L_phase22,{
     if(trueanswer$correctAnswer13 == 42){
       output$rep42 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4488,12 +4478,12 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish11,{
+  observeEvent(input$L_phase23,{
     if(input$phase_choice6 == "Question6Answer3"){
       trueanswer$correctAnswer13 <- 43
     }
   })
-  observeEvent(input$finish11,{
+  observeEvent(input$L_phase23,{
     if(trueanswer$correctAnswer13 == 43){
       output$rep43 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4504,13 +4494,13 @@ server <- function(input, output, session) {
     }
   })
   
-  observeEvent(input$finish11,{
+  observeEvent(input$L_phase24,{
     if(input$phase_choice6 == "Question6Answer4"){
       trueanswer$correctAnswer13 <- 44
     }
     
   })
-  observeEvent(input$finish11,{
+  observeEvent(input$L_phase24,{
     if(trueanswer$correctAnswer13 == 44){
       output$rep44 <- renderText(paste("Votre réponse(en vert).")) 
     }  
@@ -4602,7 +4592,143 @@ server <- function(input, output, session) {
   
   
   scoredata1 <- 0
-  observeEvent(input$gt_inst4, {
+  #if the user aswer with 1st at test 1 
+  observeEvent(input$T_phase21, {
+    if (input$test_phase == "Test1Question1Answer2"){
+      
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase2 == "Test1Question2Answer4"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase3 == "Test1Question3Answer3"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase4 == "Test1Question4Answer4"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase5 == "Test1Question5Answer1"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase6 == "Test1Question6Answer3"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (scoredata1 == 5 ){
+      output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+      
+    }
+    else if (scoredata1 == 6 ){
+      output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+      
+    }
+    else if (scoredata1 == 4){
+      output$ScorePictures3 <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Vous allez devoir procéder à un autre test.Il faut que vous ayez tout juste pour pouvoir continuer ne lacher rien.Bonne chance."))  
+    }
+    else if (scoredata1 == 3){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 2){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 1){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 0){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+  })
+  #if the user aswer with 2nd at test 1 
+  observeEvent(input$T_phase22, {
+    if (input$test_phase == "Test1Question1Answer2"){
+      
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase2 == "Test1Question2Answer4"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase3 == "Test1Question3Answer3"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase4 == "Test1Question4Answer4"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase5 == "Test1Question5Answer1"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase6 == "Test1Question6Answer3"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (scoredata1 == 5 ){
+      output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+      
+    }
+    else if (scoredata1 == 6 ){
+      output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+      
+    }
+    else if (scoredata1 == 4){
+      output$ScorePictures3 <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Vous allez devoir procéder à un autre test.Il faut que vous ayez tout juste pour pouvoir continuer ne lacher rien.Bonne chance."))  
+    }
+    else if (scoredata1 == 3){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 2){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 1){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 0){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+  })
+  #if the user aswer with 3rd at test 1 
+  observeEvent(input$T_phase23, {
+    if (input$test_phase == "Test1Question1Answer2"){
+      
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase2 == "Test1Question2Answer4"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase3 == "Test1Question3Answer3"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase4 == "Test1Question4Answer4"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase5 == "Test1Question5Answer1"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (input$test_phase6 == "Test1Question6Answer3"){
+      scoredata1 <- scoredata1 + 1
+    }
+    if (scoredata1 == 5 ){
+      output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+      
+    }
+    else if (scoredata1 == 6 ){
+      output$ScorePictures <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Felicitation vous pouvez continuer en appuyant sur le bouton suivant."))
+      
+    }
+    else if (scoredata1 == 4){
+      output$ScorePictures3 <- renderText(paste("Votre score est de :",scoredata1,"/ 6. Vous allez devoir procéder à un autre test.Il faut que vous ayez tout juste pour pouvoir continuer ne lacher rien.Bonne chance."))  
+    }
+    else if (scoredata1 == 3){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 2){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 1){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+    else if (scoredata1 == 0){
+      output$ScorePictures2 <- renderText(paste("Votre score est de :",scoredata1,"/6.Merci de votre participation.Malheureusement,votre score est trop faible pour pouvoir continuer."))
+    }
+  })
+  #if the user aswer with 4th at test 1 
+  observeEvent(input$T_phase24, {
     if (input$test_phase == "Test1Question1Answer2"){
       
       scoredata1 <- scoredata1 + 1
@@ -4836,24 +4962,120 @@ server <- function(input, output, session) {
     CurrentValues$page <- "p1questionnaire"
   }
   )
+  observeEvent(input$T_phase,{
+    CurrentValues$page <- "p2questionnaire"
+  }
+  )
+  observeEvent(input$T_phase2,{
+    CurrentValues$page <- "p2questionnaire"
+  }
+  )
+  observeEvent(input$T_phase3,{
+    CurrentValues$page <- "p2questionnaire"
+  }
+  )
+  observeEvent(input$T_phase4,{
+    CurrentValues$page <- "p2questionnaire"
+  }
+  )
   observeEvent(input$prepa2_questionnaire,{
     CurrentValues$page <- "p2questionnaire"
+  }
+  )
+  observeEvent(input$T_phase5,{
+    CurrentValues$page <- "p3questionnaire"
+  }
+  )
+  observeEvent(input$T_phase6,{
+    CurrentValues$page <- "p3questionnaire"
+  }
+  )
+  observeEvent(input$T_phase7,{
+    CurrentValues$page <- "p3questionnaire"
+  }
+  )
+  observeEvent(input$T_phase8,{
+    CurrentValues$page <- "p3questionnaire"
   }
   )
   observeEvent(input$prepa3_questionnaire,{
     CurrentValues$page <- "p3questionnaire"
   }
   )
+  observeEvent(input$T_phase9,{
+    CurrentValues$page <- "p4questionnaire"
+  }
+  )
+  observeEvent(input$T_phase10,{
+    CurrentValues$page <- "p4questionnaire"
+  }
+  )
+  observeEvent(input$T_phase11,{
+    CurrentValues$page <- "p4questionnaire"
+  }
+  )
+  observeEvent(input$T_phase12,{
+    CurrentValues$page <- "p4questionnaire"
+  }
+  )
   observeEvent(input$prepa4_questionnaire,{
     CurrentValues$page <- "p4questionnaire"
+  }
+  )
+  observeEvent(input$T_phase13,{
+    CurrentValues$page <- "p5questionnaire"
+  }
+  )
+  observeEvent(input$T_phase14,{
+    CurrentValues$page <- "p5questionnaire"
+  }
+  )
+  observeEvent(input$T_phase15,{
+    CurrentValues$page <- "p5questionnaire"
+  }
+  )
+  observeEvent(input$T_phase16,{
+    CurrentValues$page <- "p5questionnaire"
   }
   )
   observeEvent(input$prepa5_questionnaire,{
     CurrentValues$page <- "p5questionnaire"
   }
   )
+  observeEvent(input$T_phase17,{
+    CurrentValues$page <- "p6questionnaire"
+  }
+  )
+  observeEvent(input$T_phase18,{
+    CurrentValues$page <- "p6questionnaire"
+  }
+  )
+  observeEvent(input$T_phase19,{
+    CurrentValues$page <- "p6questionnaire"
+  }
+  )
+  observeEvent(input$T_phase20,{
+    CurrentValues$page <- "p6questionnaire"
+  }
+  )
   observeEvent(input$prepa6_questionnaire,{
     CurrentValues$page <- "p6questionnaire"
+  }
+  )
+  observeEvent(input$T_phase21,{
+    CurrentValues$page <- "inst4"
+  }
+  )
+  observeEvent(input$T_phase22,{
+    CurrentValues$page <- "inst4"
+  }
+  )
+  observeEvent(input$T_phase23,{
+    CurrentValues$page <- "inst4"
+  }
+  )
+  observeEvent(input$T_phase24,{
+    CurrentValues$page <- "inst4"
   }
   )
   observeEvent(input$LastChance_questionnaire1,{
@@ -4909,7 +5131,39 @@ server <- function(input, output, session) {
     CurrentValues$page <- "result_1"
   }
   )
+  observeEvent(input$L_phase, {
+    CurrentValues$page <- "result_1"
+  }
+  )
+  observeEvent(input$L_phase2, {
+    CurrentValues$page <- "result_1"
+  }
+  )
+  observeEvent(input$L_phase3, {
+    CurrentValues$page <- "result_1"
+  }
+  )
+  observeEvent(input$L_phase4, {
+    CurrentValues$page <- "result_1"
+  }
+  )
   observeEvent(input$finish2, {  #Check whether an input has been made:
+    CurrentValues$page <- "result_6"
+  }
+  )
+  observeEvent(input$L_phasebis, {
+    CurrentValues$page <- "result_6"
+  }
+  )
+  observeEvent(input$L_phase2bis, {
+    CurrentValues$page <- "result_6"
+  }
+  )
+  observeEvent(input$L_phase3bis, {
+    CurrentValues$page <- "result_6"
+  }
+  )
+  observeEvent(input$L_phase4bis, {
     CurrentValues$page <- "result_6"
   }
   )
@@ -4925,7 +5179,39 @@ server <- function(input, output, session) {
     CurrentValues$page <- "result_2"
   }
   )
+  observeEvent(input$L_phase5, {
+    CurrentValues$page <- "result_2"
+  }
+  )
+  observeEvent(input$L_phase6, {
+    CurrentValues$page <- "result_2"
+  }
+  )
+  observeEvent(input$L_phase7, {
+    CurrentValues$page <- "result_2"
+  }
+  )
+  observeEvent(input$L_phase8, {
+    CurrentValues$page <- "result_2"
+  }
+  )
   observeEvent(input$finish4, {  #Check whether an input has been made:
+    CurrentValues$page <- "result_7"
+  }
+  )
+  observeEvent(input$L_phase5bis, {
+    CurrentValues$page <- "result_7"
+  }
+  )
+  observeEvent(input$L_phase6bis, {
+    CurrentValues$page <- "result_7"
+  }
+  )
+  observeEvent(input$L_phase7bis, {
+    CurrentValues$page <- "result_7"
+  }
+  )
+  observeEvent(input$L_phase8bis, {
     CurrentValues$page <- "result_7"
   }
   )
@@ -4942,7 +5228,39 @@ server <- function(input, output, session) {
     CurrentValues$page <- "result_3"
   }
   )
+  observeEvent(input$L_phase9, {
+    CurrentValues$page <- "result_3"
+  }
+  )
+  observeEvent(input$L_phase10, {
+    CurrentValues$page <- "result_3"
+  }
+  )
+  observeEvent(input$L_phase11, {
+    CurrentValues$page <- "result_3"
+  }
+  )
+  observeEvent(input$L_phase12, {
+    CurrentValues$page <- "result_3"
+  }
+  )
   observeEvent(input$finish6, {  #Check whether an input has been made:
+    CurrentValues$page <- "result_8"
+  }
+  )
+  observeEvent(input$L_phase9bis, {
+    CurrentValues$page <- "result_8"
+  }
+  )
+  observeEvent(input$L_phase10bis, {
+    CurrentValues$page <- "result_8"
+  }
+  )
+  observeEvent(input$L_phase11bis, {
+    CurrentValues$page <- "result_8"
+  }
+  )
+  observeEvent(input$L_phase12bis, {
     CurrentValues$page <- "result_8"
   }
   )
@@ -4959,7 +5277,39 @@ server <- function(input, output, session) {
     CurrentValues$page <- "result_4"
   }
   )
+  observeEvent(input$L_phase13, {
+    CurrentValues$page <- "result_4"
+  }
+  )
+  observeEvent(input$L_phase14, {
+    CurrentValues$page <- "result_4"
+  }
+  )
+  observeEvent(input$L_phase15, {
+    CurrentValues$page <- "result_4"
+  }
+  )
+  observeEvent(input$L_phase16, {
+    CurrentValues$page <- "result_4"
+  }
+  )
   observeEvent(input$finish8, {  #Check whether an input has been made:
+    CurrentValues$page <- "result_9"
+  }
+  )
+  observeEvent(input$L_phase13bis, {
+    CurrentValues$page <- "result_9"
+  }
+  )
+  observeEvent(input$L_phase14bis, {
+    CurrentValues$page <- "result_9"
+  }
+  )
+  observeEvent(input$L_phase15bis, {
+    CurrentValues$page <- "result_9"
+  }
+  )
+  observeEvent(input$L_phase16bis, {
     CurrentValues$page <- "result_9"
   }
   )
@@ -4975,7 +5325,39 @@ server <- function(input, output, session) {
     CurrentValues$page <- "result_5"
   }
   )
+  observeEvent(input$L_phase17, {
+    CurrentValues$page <- "result_5"
+  }
+  )
+  observeEvent(input$L_phase18, {
+    CurrentValues$page <- "result_5"
+  }
+  )
+  observeEvent(input$L_phase19, {
+    CurrentValues$page <- "result_5"
+  }
+  )
+  observeEvent(input$L_phase20, {
+    CurrentValues$page <- "result_5"
+  }
+  )
   observeEvent(input$finish10, {  #Check whether an input has been made:
+    CurrentValues$page <- "result_10"
+  }
+  )
+  observeEvent(input$L_phase17bis, {
+    CurrentValues$page <- "result_10"
+  }
+  )
+  observeEvent(input$L_phase18bis, {
+    CurrentValues$page <- "result_10"
+  }
+  )
+  observeEvent(input$L_phase19bis, {
+    CurrentValues$page <- "result_10"
+  }
+  )
+  observeEvent(input$L_phase20bis, {
     CurrentValues$page <- "result_10"
   }
   )
@@ -4991,8 +5373,40 @@ server <- function(input, output, session) {
     CurrentValues$page <- "result_12"
   }
   )
+  observeEvent(input$L_phase21, {
+    CurrentValues$page <- "result_12"
+  }
+  )
+  observeEvent(input$L_phase22, {
+    CurrentValues$page <- "result_12"
+  }
+  )
+  observeEvent(input$L_phase23, {
+    CurrentValues$page <- "result_12"
+  }
+  )
+  observeEvent(input$L_phase24, {
+    CurrentValues$page <- "result_12"
+  }
+  )
   observeEvent(input$finish12, {  #Check whether an input has been made:
     CurrentValues$page <- "result_11"
+  }
+  )
+  observeEvent(input$L_phase21bis, {
+    CurrentValues$page <- "result_11"
+  }
+  )
+  observeEvent(input$L_phase22bis, {
+    CurrentValues$page <- "result_12"
+  }
+  )
+  observeEvent(input$L_phase23bis, {
+    CurrentValues$page <- "result_12"
+  }
+  )
+  observeEvent(input$L_phase24bis, {
+    CurrentValues$page <- "result_12"
   }
   )
   observeEvent(input$resultfinal1, {  #Check whether an input has been made:
@@ -5003,6 +5417,15 @@ server <- function(input, output, session) {
     CurrentValues$page <- "result_final2"
   }
   )
+  observeEvent(input$finish2, {  #Check whether an input has been made:
+    CurrentValues$page <- "result_6"
+  }
+  )
+ 
+  #observe({
+  #  input.phase_choice == 'Question1Answer1'
+  #  CurrentValues$page <- "result_1"
+  #})
   observeEvent(input$resultats_finaux, {  #Check whether an input has been made:
     CurrentValues$page <- "resultatsfinaux"
   }

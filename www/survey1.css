@@ -93,6 +93,8 @@ h4{
     cursor:pointer;
     background-size:contain;
     background-repeat:no-repeat;
+    background-position-x: center;
+    background-position-y: center;
     display:inline-block;
     width:200px;height:150px;
     -webkit-transition: all 100ms ease-in;
