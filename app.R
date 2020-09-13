@@ -152,7 +152,7 @@ server <- function(input, output, session) {
         return(
           list(
             includeCSS("www/stylewelcomesalut.css"),
-            actionButton(inputId = "test_multi",label = "Étape suivante"),
+            actionButton(inputId = "L4_survey",label = "Étape suivante"),
             h1("Deux paires d'oreilles valent mieux qu'une!"),
             h2("Jouez à relier sons et images avec votre partenaire."),
             HTML("<br>"),
@@ -853,10 +853,10 @@ server <- function(input, output, session) {
             HTML("<hr>"),
             tags$audio(src = "1.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
 
-            conditionalPanel(
-              condition= c("input.Last_questionnaire1 == 'Last_chanceq1' || input.Last_questionnaire1 =='Last_chanceq2' ||input.Last_questionnaire1 == 'Last_chanceq3' || input.Last_questionnaire1 == 'Last_chanceq4' "),
-              actionButton(inputId = "LastChance_questionnaire2",label = "Étape suivante")
-            ),
+            #conditionalPanel(
+            #  condition= c("input.Last_questionnaire1 == 'Last_chanceq1' || input.Last_questionnaire1 =='Last_chanceq2' ||input.Last_questionnaire1 == 'Last_chanceq3' || input.Last_questionnaire1 == 'Last_chanceq4' "),
+            #  actionButton(inputId = "LastChance_questionnaire2",label = "Étape suivante")
+            #),
             HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/LastChance_questionnaire1.html")
@@ -870,10 +870,10 @@ server <- function(input, output, session) {
           list(
             h3("Dernière chance "),
             HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.Last_questionnaire2 == 'Last_chanceq5' || input.Last_questionnaire2 =='Last_chanceq6' ||input.Last_questionnaire2 == 'Last_chanceq7' || input.Last_questionnaire2 == 'Last_chanceq8' "),
-              actionButton(inputId = "LastChance_questionnaire3",label = "Étape suivante")
-            ),
+            #conditionalPanel(
+            #  condition= c("input.Last_questionnaire2 == 'Last_chanceq5' || input.Last_questionnaire2 =='Last_chanceq6' ||input.Last_questionnaire2 == 'Last_chanceq7' || input.Last_questionnaire2 == 'Last_chanceq8' "),
+            #  actionButton(inputId = "LastChance_questionnaire3",label = "Étape suivante")
+            #),
             HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/LastChance_questionnaire2.html"),
@@ -887,10 +887,10 @@ server <- function(input, output, session) {
           list(
             h3("Dernière chance "),
             HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.Last_questionnaire3 == 'Last_chanceq9' || input.Last_questionnaire3 =='Last_chanceq10' ||input.Last_questionnaire3 == 'Last_chanceq11' || input.Last_questionnaire3 == 'Last_chanceq12' "),
-              actionButton(inputId = "LastChance_questionnaire4",label = "Étape suivante")
-            ),
+            #conditionalPanel(
+            #  condition= c("input.Last_questionnaire3 == 'Last_chanceq9' || input.Last_questionnaire3 =='Last_chanceq10' ||input.Last_questionnaire3 == 'Last_chanceq11' || input.Last_questionnaire3 == 'Last_chanceq12' "),
+            #  actionButton(inputId = "LastChance_questionnaire4",label = "Étape suivante")
+            #),
             HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/LastChance_questionnaire3.html"),
@@ -906,10 +906,10 @@ server <- function(input, output, session) {
             HTML("<hr>"),
             tags$audio(src = "13.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style ="display:none;"),
             HTML("<hr>"),
-            conditionalPanel(
-              condition= c("input.Last_questionnaire4 == 'Last_chanceq13' || input.Last_questionnaire4 =='Last_chanceq14' ||input.Last_questionnaire4 == 'Last_chanceq15' || input.Last_questionnaire4 == 'Last_chanceq16' "),
-              actionButton(inputId = "gt_inst5",label = "Étape suivante")
-            ),
+            #conditionalPanel(
+            #  condition= c("input.Last_questionnaire4 == 'Last_chanceq13' || input.Last_questionnaire4 =='Last_chanceq14' ||input.Last_questionnaire4 == 'Last_chanceq15' || input.Last_questionnaire4 == 'Last_chanceq16' "),
+            #  actionButton(inputId = "gt_inst5",label = "Étape suivante")
+            #),
             HTML("<hr>"),
             includeCSS("www/surveyp.css"),
             includeHTML("www/LastChance_questionnaire4.html")
@@ -5076,6 +5076,70 @@ server <- function(input, output, session) {
   )
   observeEvent(input$T_phase24,{
     CurrentValues$page <- "inst4"
+  }
+  )
+  observeEvent(input$L_chanceq1,{
+    CurrentValues$page <- "LastChancequestionnaire2"
+  }
+  )
+  observeEvent(input$L_chanceq2,{
+    CurrentValues$page <- "LastChancequestionnaire2"
+  }
+  )
+  observeEvent(input$L_chanceq3,{
+    CurrentValues$page <- "LastChancequestionnaire2"
+  }
+  )
+  observeEvent(input$L_chanceq4,{
+    CurrentValues$page <- "LastChancequestionnaire2"
+  }
+  )
+  observeEvent(input$L_chanceq5,{
+    CurrentValues$page <- "LastChancequestionnaire3"
+  }
+  )
+  observeEvent(input$L_chanceq6,{
+    CurrentValues$page <- "LastChancequestionnaire3"
+  }
+  )
+  observeEvent(input$L_chanceq7,{
+    CurrentValues$page <- "LastChancequestionnaire3"
+  }
+  )
+  observeEvent(input$L_chanceq8,{
+    CurrentValues$page <- "LastChancequestionnaire3"
+  }
+  )
+  observeEvent(input$L_chanceq9,{
+    CurrentValues$page <- "LastChancequestionnaire4"
+  }
+  )
+  observeEvent(input$L_chanceq10,{
+    CurrentValues$page <- "LastChancequestionnaire4"
+  }
+  )
+  observeEvent(input$L_chanceq11,{
+    CurrentValues$page <- "LastChancequestionnaire4"
+  }
+  )
+  observeEvent(input$L_chanceq12,{
+    CurrentValues$page <- "LastChancequestionnaire4"
+  }
+  )
+  observeEvent(input$L_chanceq13,{
+    CurrentValues$page <- "inst5"
+  }
+  )
+  observeEvent(input$L_chanceq14,{
+    CurrentValues$page <- "inst5"
+  }
+  )
+  observeEvent(input$L_chanceq15,{
+    CurrentValues$page <- "inst5"
+  }
+  )
+  observeEvent(input$L_chanceq16,{
+    CurrentValues$page <- "inst5"
   }
   )
   observeEvent(input$LastChance_questionnaire1,{
