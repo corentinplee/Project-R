@@ -152,6 +152,7 @@ server <- function(input, output, session) {
         return(
           list(
             includeCSS("www/stylewelcomesalut.css"),
+            actionButton(inputId = "L4_survey",label = "Étape suivante"),
             h1("Deux paires d'oreilles valent mieux qu'une!"),
             h2("Jouez à relier sons et images avec votre partenaire."),
             HTML("<br>"),
